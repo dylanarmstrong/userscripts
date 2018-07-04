@@ -43,6 +43,53 @@
   const { host } = document.location;
 
   const csses = {
+    'forums.spacebattles.com': {
+      type: 'string',
+      css: `
+        @import url('https://fonts.googleapis.com/css?family=Amiri');
+        .messageText {
+          font-family: 'Amiri', serif;
+          font-size: 20px;
+          letter-spacing: -0.1px;
+          line-height: 1.1;
+          font-weight: 400;
+          text-rendering: optimizeLegibility;
+        }
+
+        .messageUserInfo {
+          display: none;
+        }
+
+        .message .messageInfo {
+          margin-left: 0;
+          padding: 0 30px;
+        }
+
+        .pageContent {
+          width: 85%;
+          margin: 0 auto;
+        }
+
+        .node .nodeText .nodeTitle,
+        .discussionListItem .title {
+          font-size: 18px;
+        }
+
+        .node .nodeStats,
+        .discussionListItem .secondRow {
+          font-size: 12px;
+          margin-top: 1px;
+        }
+
+        #QuickSearch {
+          top: -29px;
+          right: 95px;
+          border-right: 1px solid rgb(65, 92, 135);
+          border-top-right-radius: 0;
+        }
+      `
+    },
+
     '((old|www)\.)?reddit\.com$': {
       type: 'regex',
       css: `
@@ -78,7 +125,7 @@
       const style = document.createElement('style');
       style.type = 'text/css';
       style.textContent = css;
-      document.head.insertBefore(style, document.head.firstChild);
+      document.head.insertAdjacentElement('beforeend', style);
     }
   }
 })();
