@@ -20,6 +20,24 @@
 (function() {
   'use strict';
 
+  const css = `
+    .reddit-filter-block {
+      background-color: rgb(250, 241, 241);
+      color: #333;
+      border: 1px solid rgb(244, 219, 220);
+      padding: 0px 4px 2px;
+      font-size: 10px;
+      margin-left: 3px;
+      margin-top: -1px;
+      border-radius: 50%;
+    }
+  `;
+
+  const style = document.createElement('style');
+  style.type = 'text/css';
+  style.textContent = css;
+  document.head.insertBefore(style, document.head.firstChild);
+
   // Can I just use the @version from above?
   const version = '0.5';
   const keys = {
@@ -45,22 +63,19 @@
 
   // Make a (x) button next to subreddit
   let button = document.createElement('button');
-  button.style.backgroundColor = 'rgb(250, 241, 241)';
-  button.style.color = '#333';
-  button.style.border = '1px solid rgb(244, 219, 220)';
-  button.style.padding = '0px 4px 2px';
-  button.style.fontSize = '10px';
-  button.style.marginLeft = '3px';
-  button.style.marginTop = '-1px';
-  button.style.borderRadius = '50%';
+  button.classList.add('reddit-filter-block');
 
-  const nodes = document.querySelectorAll('.subreddit');
+  const nodes = document.getElementsByClassName('subreddit');
 
   // Remove all blocked subreddits
   const hide = () => {
     let blocked = localStorage.getItem(keys.subreddits).split(',');
     for (let i = 0, len = nodes.length; i < len; i++) {
       const node = nodes[i];
+      if (!node || typeof node === 'undefined') {
+        continue;
+      }
+
       // Remove r/ from the subreddit
       const subreddit = node.textContent.slice(2).toLowerCase();
       if (blocked.includes(subreddit)) {
@@ -78,15 +93,38 @@
       return;
     }
 
-    const subreddit = previousElementSibling.textContent.slice(2).toLowerCase();
-    if (confirm(`Are you sure you want to block r/${subreddit}?`)) {
-      let blocked = localStorage.getItem(keys.subreddits);
-      if (blocked.split(',').includes(subreddit)) {
+    const { textContent } = previousElementSibling;
+
+    let type = textContent.slice(0, 2)
+      , key = ''
+      , block = '';
+
+    if (type === 'r/') {
+      // Blocking subreddit
+      block = textContent.slice(2).toLowerCase();
+      key = keys.subreddits;
+
+    } else if (type === 'u/') {
+      // Blocking user subreddit
+      block = textContent.slice(2).toLowerCase();
+      key = keys.users;
+
+    } else {
+      block = textContent.slice(0).toLowerCase();
+      type = 'u/';
+      key = keys.users;
+    }
+
+    if (confirm(`Are you sure you want to block ${type}${block}?`)) {
+      let blocked = localStorage.getItem(key);
+      if (blocked.split(',').includes(block)) {
         return;
       }
-      blocked += `,${subreddit}`;
+
+      blocked += `,${block}`;
       blocked = blocked.replace(/^,/, '');
-      localStorage.setItem(keys.subreddits, blocked);
+      localStorage.setItem(key, blocked);
+
       hide();
     }
   };
