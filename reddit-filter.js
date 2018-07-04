@@ -12,7 +12,7 @@
 
 /**
  * Adds a little (x) button next to subreddits on r/all so you can filter them
- * They're stored in localStorage key 'filter_blocked_subreddits'
+ * They're stored in localStorage key 'filter.subreddits'
  *
  * TODO: Add filtering of words, users, and domains
  */
@@ -23,10 +23,10 @@
   // Can I just use the @version from above?
   const version = '0.2';
   const keys = {
-    subreddits: 'filter_blocked_subreddits',
-    users: 'filter_blocked_users',
-    words: 'filter_blocked_words',
-    version: 'filter_blocked_version'
+    subreddits: 'filter.subreddits',
+    users: 'filter.users',
+    words: 'filter.words',
+    version: 'filter.version'
   };
 
   // Make sure all keys are initialized
