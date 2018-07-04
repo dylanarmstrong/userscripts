@@ -1,12 +1,10 @@
 // ==UserScript==
 // @name         reddit-filter
-// @namespace    https://old.reddit.com
 // @namespace    https://www.reddit.com
-// @version      0.6
+// @version      0.7
 // @description  Filter subreddits on r/all
 // @author       meinhimmel
-// @match        https://old.reddit.com/r/all/*
-// @match        https://www.reddit.com/r/all/*
+// @match        https://*.reddit.com/r/all/*
 // @updateURL    https://raw.githubusercontent.com/meinhimmel/tampermonkey-scripts/master/reddit-filter.js
 // @supportURL   https://github.com/meinhimmel/tampermonkey-scripts/issues
 // @grant        none
