@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         spacebattles-popular
 // @namespace    https://forums.spacebattles.com/
-// @version      0.1
+// @version      0.2
 // @description  Hide unpopular stories for easier browsing of recent
 // @author       meinhimmel
 // @match        https://forums.spacebattles.com/forums/creative-writing.18/*
@@ -10,6 +10,8 @@
 // @match        https://forums.spacebattles.com/forums/roleplaying-quests-story-debates.60/*
 // @match        https://forums.spacebattles.com/forums/creative-writing-archives.40/*
 // @match        https://forums.spacebattles.com/forums/the-index.63/*
+// @updateURL    https://raw.githubusercontent.com/meinhimmel/tampermonkey-scripts/master/spacebattles-popular.js
+// @supportURL   https://github.com/meinhimmel/tampermonkey-scripts/issues
 // @grant        none
 // ==/UserScript==
 
