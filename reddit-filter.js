@@ -2,7 +2,7 @@
 // @name         reddit-filter
 // @namespace    https://old.reddit.com
 // @namespace    https://www.reddit.com
-// @version      0.4
+// @version      0.5
 // @description  Filter subreddits on r/all
 // @author       meinhimmel
 // @match        https://old.reddit.com/r/all/*
@@ -21,7 +21,7 @@
   'use strict';
 
   // Can I just use the @version from above?
-  const version = '0.4';
+  const version = '0.5';
   const keys = {
     domains: 'filter.domains',
     subreddits: 'filter.subreddits',
@@ -58,20 +58,16 @@
 
   // Remove all blocked subreddits
   const hide = () => {
-    let blocked = localStorage.getItem(keys.subreddits);
-    if (blocked === null) {
-      localStorage.setItem(keys.subreddits, '');
-      return;
-    }
-
-    blocked = blocked.split(',');
+    let blocked = localStorage.getItem(keys.subreddits).split(',');
     for (let i = 0, len = nodes.length; i < len; i++) {
       const node = nodes[i];
       // Remove r/ from the subreddit
       const subreddit = node.textContent.slice(2).toLowerCase();
       if (blocked.includes(subreddit)) {
         const p = node.parentNode.parentNode.parentNode.parentNode;
-        p.parentNode.removeChild(p);
+        if (p && p.parentNode) {
+          p.parentNode.removeChild(p);
+        }
       }
     }
   };
@@ -85,11 +81,11 @@
     const subreddit = previousElementSibling.textContent.slice(2).toLowerCase();
     if (confirm(`Are you sure you want to block r/${subreddit}?`)) {
       let blocked = localStorage.getItem(keys.subreddits);
-      if (blocked === null) {
-        blocked = subreddit;
-      } else {
-        blocked = `${blocked},${subreddit}`;
+      if (blocked.split(',').includes(subreddit)) {
+        return;
       }
+      blocked += `,${subreddit}`;
+      blocked = blocked.replace(/^,/, '');
       localStorage.setItem(keys.subreddits, blocked);
       hide();
     }
