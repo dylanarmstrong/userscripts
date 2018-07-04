@@ -43,7 +43,7 @@
   document.head.insertBefore(style, document.head.firstChild);
 
   // Can I just use the @version from above?
-  const version = '0.6';
+  const version = '0.7';
   const keys = {
     domains: 'filter.domains',
     subreddits: 'filter.subreddits',
@@ -57,20 +57,23 @@
     const value = keys[key];
     const item = localStorage.getItem(value);
     if (item === null) {
-      let def = '';
-      if (key === 'version') {
-        def = version;
-      }
-      localStorage.setItem(value, def);
+      localStorage.setItem(value, '');
     }
   });
+
+  // This is in case changes are ever breaking
+  localStorage.setItem(keys.version, version);
 
   // Make a (x) button next to subreddit
   let button = document.createElement('button');
   button.classList.add('reddit-filter-block');
 
-  let nodes = Array.from(document.getElementsByClassName('entry'));
-  nodes = nodes.filter(node => node !== null && typeof node !== 'undefined');
+  let nodes = null;
+
+  const updateNodes = () => {
+    nodes = Array.from(document.getElementsByClassName('entry'));
+    nodes = nodes.filter(node => node !== null && typeof node !== 'undefined');
+  };
 
   // Remove all blocked subreddits
   const hide = () => {
@@ -178,37 +181,60 @@
     }
   };
 
-  for (let i = 0, len = nodes.length; i < len; i++) {
-    const node = nodes[i];
+  const addButtons = () => {
+    for (let i = 0, len = nodes.length; i < len; i++) {
+      const node = nodes[i];
 
-    const [ subreddit ] = node.getElementsByClassName('subreddit')
-    if (subreddit) {
-      button = button.cloneNode();
-      button.textContent = 'x';
-      button.addEventListener('click', blockClick);
+      const [ subreddit ] = node.getElementsByClassName('subreddit')
+      if (subreddit) {
+        // Check if button already added
+        const { nextElementSibling } = subreddit;
+        if (nextElementSibling === null) {
+          button = button.cloneNode();
+          button.textContent = 'x';
+          button.addEventListener('click', blockClick);
 
-      subreddit.insertAdjacentElement('afterend', button);
+          subreddit.insertAdjacentElement('afterend', button);
+        }
+      }
+
+      const [ author ] = node.getElementsByClassName('author')
+      if (author) {
+        // Check if button already added
+        const { nextElementSibling } = author;
+        if (nextElementSibling === null) {
+          button = button.cloneNode();
+          button.textContent = 'x';
+          button.addEventListener('click', blockClick);
+
+          author.insertAdjacentElement('afterend', button);
+        }
+      }
+
+      const [ domain ] = node.getElementsByClassName('domain')
+      if (domain) {
+        // Check if button already added
+        const { nextElementSibling } = domain;
+        if (nextElementSibling === null) {
+          button = button.cloneNode();
+          button.textContent = 'x';
+          button.addEventListener('click', blockClick);
+
+          domain.insertAdjacentElement('afterend', button);
+        }
+      }
     }
+  };
 
-    const [ author ] = node.getElementsByClassName('author')
-    if (author) {
-      button = button.cloneNode();
-      button.textContent = 'x';
-      button.addEventListener('click', blockClick);
+  const run = () => {
+    updateNodes();
+    hide();
+    addButtons();
+  };
 
-      author.insertAdjacentElement('afterend', button);
-    }
+  // Infinite loading scroll script has loaded more items
+  document.addEventListener('reddit-load', run);
 
-    const [ domain ] = node.getElementsByClassName('domain')
-    if (domain) {
-      button = button.cloneNode();
-      button.textContent = 'x';
-      button.addEventListener('click', blockClick);
-
-      domain.insertAdjacentElement('afterend', button);
-    }
-  }
-
-  hide();
+  run();
 })();
 
