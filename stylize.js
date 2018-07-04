@@ -46,6 +46,12 @@
     '((old|www)\.)?reddit\.com$': {
       type: 'regex',
       css: `
+        .listing-chooser.initialized,
+        .entry .buttons .give-gold-button,
+        .entry .buttons .share,
+        .entry .buttons .crosspost-button {
+          display: none;
+        }
       `
     }
   };
