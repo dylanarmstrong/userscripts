@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         reddit-redirect
 // @namespace    https://www.reddit.com
-// @version      0.1
+// @version      1.0
 // @description  Redirect www to old
 // @author       meinhimmel
 // @match        https://www.reddit.com/*

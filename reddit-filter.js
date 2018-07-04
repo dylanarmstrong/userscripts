@@ -2,7 +2,7 @@
 // @name         reddit-filter
 // @namespace    https://old.reddit.com
 // @namespace    https://www.reddit.com
-// @version      0.1
+// @version      0.2
 // @description  Filter subreddits on r/all
 // @author       meinhimmel
 // @match        https://old.reddit.com/r/all/*
@@ -12,11 +12,34 @@
 
 /**
  * Adds a little (x) button next to subreddits on r/all so you can filter them
- * They're stored in localStorage key 'blocked'
+ * They're stored in localStorage key 'filter_blocked_subreddits'
+ *
+ * TODO: Add filtering of words, users, and domains
  */
 
 (function() {
   'use strict';
+
+  // Can I just use the @version from above?
+  const version = '0.2';
+  const keys = {
+    subreddits: 'filter_blocked_subreddits',
+    users: 'filter_blocked_users',
+    words: 'filter_blocked_words',
+    version: 'filter_blocked_version'
+  };
+
+  // Make sure all keys are initialized
+  Object.keys(keys).forEach((key) => {
+    const item = localStorage.getItem(key);
+    if (item === null) {
+      let def = '';
+      if (key === 'version') {
+        def = version;
+      }
+      localStorage.setItem(key, def);
+    }
+  });
 
   // Make a (x) button next to subreddit
   let button = document.createElement('button');
@@ -33,9 +56,9 @@
 
   // Remove all blocked subreddits
   const hide = () => {
-    let blocked = localStorage.getItem('blocked');
+    let blocked = localStorage.getItem(keys.subreddits);
     if (blocked === null) {
-      localStorage.setItem('blocked', '');
+      localStorage.setItem(keys.subreddits, '');
       return;
     }
 
@@ -59,13 +82,13 @@
 
     const subreddit = previousElementSibling.textContent.slice(2).toLowerCase();
     if (confirm(`Are you sure you want to block r/${subreddit}?`)) {
-      let blocked = localStorage.getItem('blocked');
+      let blocked = localStorage.getItem(keys.subreddits);
       if (blocked === null) {
         blocked = subreddit;
       } else {
         blocked = `${blocked},${subreddit}`;
       }
-      localStorage.setItem('blocked', blocked);
+      localStorage.setItem(keys.subreddits, blocked);
       hide();
     }
   };
