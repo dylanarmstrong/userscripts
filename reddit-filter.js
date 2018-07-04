@@ -16,7 +16,7 @@
  * Adds a little (x) button next to subreddits on r/all so you can filter them
  * They're stored in localStorage key 'filter.subreddits'
  *
- * TODO: Add filtering of words, users, and domains
+ * TODO: Add filtering of words, not sure on how to do UI for this one
  */
 
 (function() {
@@ -33,6 +33,10 @@
       margin-top: -1px;
       border-radius: 50%;
     }
+
+    .entry a.author {
+      margin-right: 0;
+    }
   `;
 
   const style = document.createElement('style');
@@ -41,7 +45,7 @@
   document.head.insertBefore(style, document.head.firstChild);
 
   // Can I just use the @version from above?
-  const version = '0.5';
+  const version = '0.6';
   const keys = {
     domains: 'filter.domains',
     subreddits: 'filter.subreddits',
@@ -67,26 +71,57 @@
   let button = document.createElement('button');
   button.classList.add('reddit-filter-block');
 
-  const nodes = document.getElementsByClassName('subreddit');
+  let nodes = Array.from(document.getElementsByClassName('entry'));
+  nodes = nodes.filter(node => node !== null && typeof node !== 'undefined');
 
   // Remove all blocked subreddits
   const hide = () => {
-    let blocked = localStorage.getItem(keys.subreddits).split(',');
+    const subreddits = localStorage.getItem(keys.subreddits).split(',');
+    const users = localStorage.getItem(keys.users).split(',');
+    const domains = localStorage.getItem(keys.domains).split(',');
+    const words = localStorage.getItem(keys.words).split(',');
+    const removed = [];
+
     for (let i = 0, len = nodes.length; i < len; i++) {
       const node = nodes[i];
-      if (!node || typeof node === 'undefined') {
-        continue;
-      }
 
       // Remove r/ from the subreddit
-      const subreddit = node.textContent.slice(2).toLowerCase();
-      if (blocked.includes(subreddit)) {
-        const p = node.parentNode.parentNode.parentNode.parentNode;
+      let [ subreddit ] = node.getElementsByClassName('subreddit')
+        , [ user ] = node.getElementsByClassName('author')
+        , [ domain ] = node.getElementsByClassName('domain');
+
+      if (subreddit) {
+        subreddit = subreddit.textContent.slice(2).toLowerCase();
+      }
+
+      if (user) {
+        user = user.textContent.toLowerCase();
+        if (user.slice(0, 2) === 'u/') {
+          user = user.slice(2);
+        }
+      }
+
+      if (domain) {
+        [ domain ] = domain.getElementsByTagName('a');
+        if (domain) {
+          domain = domain.textContent.toLowerCase();
+        }
+      }
+
+      if (subreddits.includes(subreddit) || users.includes(user) || domains.includes(domain)) {
+        const p = node.parentNode;
         if (p && p.parentNode) {
           p.parentNode.removeChild(p);
         }
+        // Remove from nodes
+        removed.push(i);
       }
     }
+
+    // Do not act on removed nodes anymore
+    nodes = nodes.filter((node, index) => {
+      return !removed.includes(index);
+    });
   };
 
   const blockClick = (e) => {
@@ -104,12 +139,25 @@
     if (type === 'r/') {
       // Blocking subreddit
       block = textContent.slice(2).toLowerCase();
+      type = 'r/';
       key = keys.subreddits;
 
     } else if (type === 'u/') {
       // Blocking user subreddit
       block = textContent.slice(2).toLowerCase();
+      type = 'u/';
       key = keys.users;
+
+    } else if (type.slice(0, 1) === '(') {
+      // Domain
+      const [ a ] = previousElementSibling.getElementsByTagName('a');
+      if (a) {
+        block = a.textContent;
+        type = 'domain ';
+        key = keys.domains;
+      } else {
+        return;
+      }
 
     } else {
       block = textContent.slice(0).toLowerCase();
@@ -119,6 +167,7 @@
 
     if (confirm(`Are you sure you want to block ${type}${block}?`)) {
       let blocked = localStorage.getItem(key);
+      // Already in here, how'd the user block it twice?
       if (blocked.split(',').includes(block)) {
         return;
       }
@@ -132,11 +181,34 @@
   };
 
   for (let i = 0, len = nodes.length; i < len; i++) {
-    button = button.cloneNode();
-    button.textContent = 'x';
-    button.addEventListener('click', blockClick);
     const node = nodes[i];
-    node.insertAdjacentElement('afterend', button);
+
+    const [ subreddit ] = node.getElementsByClassName('subreddit')
+    if (subreddit) {
+      button = button.cloneNode();
+      button.textContent = 'x';
+      button.addEventListener('click', blockClick);
+
+      subreddit.insertAdjacentElement('afterend', button);
+    }
+
+    const [ author ] = node.getElementsByClassName('author')
+    if (author) {
+      button = button.cloneNode();
+      button.textContent = 'x';
+      button.addEventListener('click', blockClick);
+
+      author.insertAdjacentElement('afterend', button);
+    }
+
+    const [ domain ] = node.getElementsByClassName('domain')
+    if (domain) {
+      button = button.cloneNode();
+      button.textContent = 'x';
+      button.addEventListener('click', blockClick);
+
+      domain.insertAdjacentElement('afterend', button);
+    }
   }
 
   hide();
