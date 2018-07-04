@@ -2,7 +2,7 @@
 // @name         reddit-filter
 // @namespace    https://old.reddit.com
 // @namespace    https://www.reddit.com
-// @version      0.2
+// @version      0.3
 // @description  Filter subreddits on r/all
 // @author       meinhimmel
 // @match        https://old.reddit.com/r/all/*
@@ -21,7 +21,7 @@
   'use strict';
 
   // Can I just use the @version from above?
-  const version = '0.2';
+  const version = '0.3';
   const keys = {
     subreddits: 'filter.subreddits',
     users: 'filter.users',
