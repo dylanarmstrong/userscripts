@@ -8,6 +8,10 @@
 // @grant        none
 // ==/UserScript==
 
+/**
+ * Redirects all requests from www to old
+ */
+
 (function() {
   'use strict';
   // Redirect to old

@@ -10,10 +10,15 @@
 // @grant        none
 // ==/UserScript==
 
+/**
+ * Adds a little (x) button next to subreddits on r/all so you can filter them
+ * They're stored in localStorage key 'blocked'
+ */
+
 (function() {
   'use strict';
 
-  // Make a button
+  // Make a (x) button next to subreddit
   let button = document.createElement('button');
   button.style.backgroundColor = 'rgb(250, 241, 241)';
   button.style.color = '#333';
