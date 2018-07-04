@@ -9,6 +9,9 @@ Adds a small (x) next to subreddit names on r/all that hides the subreddit from 
 ### reddit-redirect.js
 Redirects www calls to old.reddit.com
 
+### reddit-load.js
+When you scroll to the bottom, load the next page of results. Compatible with reddit-filter.js.
+
 ### spacebattles-popular.js
 Hides unpopular stories on spacebattles, so it's easier to go through recently updated and find good stories.
 
