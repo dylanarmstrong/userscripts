@@ -43,6 +43,15 @@
   const { host } = document.location;
 
   const csses = {
+    'www.fanfiction.net': {
+      type: 'string',
+      css: `
+        #storytextp {
+          -webkit-user-select: auto !important;
+        }
+      `
+    },
+
     'forums.spacebattles.com': {
       type: 'string',
       css: `
