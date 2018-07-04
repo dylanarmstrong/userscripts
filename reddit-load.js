@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name         reddit-load
 // @namespace    https://www.reddit.com
-// @version      0.1
+// @version      0.2
 // @description  Infinite loading on scroll
 // @author       meinhimmel
 // @match        https://*.reddit.com/*
-// @updateURL    https://raw.githubusercontent.com/meinhimmel/tampermonkey-scripts/master/reddit-infiniload.js
+// @updateURL    https://raw.githubusercontent.com/meinhimmel/tampermonkey-scripts/master/reddit-load.js
 // @supportURL   https://github.com/meinhimmel/tampermonkey-scripts/issues
 // @grant        none
 // ==/UserScript==
