@@ -31,13 +31,14 @@
 
   // Make sure all keys are initialized
   Object.keys(keys).forEach((key) => {
-    const item = localStorage.getItem(key);
+    const value = keys[key];
+    const item = localStorage.getItem(value);
     if (item === null) {
       let def = '';
       if (key === 'version') {
         def = version;
       }
-      localStorage.setItem(key, def);
+      localStorage.setItem(value, def);
     }
   });
 
