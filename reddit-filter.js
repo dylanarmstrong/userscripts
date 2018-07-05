@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         reddit-filter
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      0.8
+// @version      0.9
 // @description  Filter subreddits on r/all
 // @author       meinhimmel
 // @match        https://*.reddit.com/r/all/*
@@ -43,7 +43,7 @@
   document.head.insertBefore(style, document.head.firstChild);
 
   // Can I just use the @version from above?
-  const version = '0.8';
+  const version = '0.9';
   const keys = {
     domains: 'filter.domains',
     subreddits: 'filter.subreddits',
@@ -189,7 +189,7 @@
       if (subreddit) {
         // Check if button already added
         const { nextElementSibling } = subreddit;
-        if (nextElementSibling === null) {
+        if (nextElementSibling === null || nextElementSibling.tagName !== 'BUTTON') {
           button = button.cloneNode();
           button.textContent = 'x';
           button.addEventListener('click', blockClick);
@@ -202,7 +202,7 @@
       if (author) {
         // Check if button already added
         const { nextElementSibling } = author;
-        if (nextElementSibling === null) {
+        if (nextElementSibling === null || nextElementSibling.tagName !== 'BUTTON') {
           button = button.cloneNode();
           button.textContent = 'x';
           button.addEventListener('click', blockClick);
@@ -215,7 +215,7 @@
       if (domain) {
         // Check if button already added
         const { nextElementSibling } = domain;
-        if (nextElementSibling === null) {
+        if (nextElementSibling === null || nextElementSibling.tagName !== 'BUTTON') {
           button = button.cloneNode();
           button.textContent = 'x';
           button.addEventListener('click', blockClick);
