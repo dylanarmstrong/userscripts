@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         reddit-filter
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      1
+// @version      3
 // @description  Filter subreddits on r/all
 // @author       meinhimmel
 // @match        https://*.reddit.com/r/all/*
@@ -11,31 +11,37 @@
 // ==/UserScript==
 
 /**
- * Adds a little (x) button next to subreddits on r/all so you can filter them
- * They're stored in localStorage key 'filter.subreddits'
+ * Adds a filter at end of tagline that has a popup to filter on subreddit, domain, or user.
+ * They're stored in the localStorage keys 'filter.*'
  *
  * TODO: Add filtering of words, not sure on how to do UI for this one
- * TODO: Copy RES and use `r/subreddit/about.json?app=res` with a popup
- *
  */
 
 (function() {
   'use strict';
 
   const css = `
-    .reddit-filter-block {
-      background-color: rgb(250, 241, 241);
-      color: #333;
-      border: 1px solid rgb(244, 219, 220);
-      padding: 0px 4px 2px;
-      font-size: 10px;
-      margin-left: 3px;
-      margin-top: -1px;
-      border-radius: 50%;
+    .reddit-filter-popup {
+      position: absolute;
+      z-index: 999;
+      background-color: #eee;
+      border: 1px solid #bbb;
+      padding: 5px 0px 3px 5px;
+      border-radius: 3px;
+      height: 20px;
     }
 
-    .entry a.author {
-      margin-right: 0;
+    .reddit-filter-popup button {
+      font-size: 10px;
+      font-weight: bold;
+      color: white;
+      background-image: linear-gradient(rgb(123, 184, 80), rgb(117, 168, 73));
+      cursor: pointer;
+      margin: 0px 5px 5px 0px;
+      padding: 1px 6px;
+      border: 1px solid rgb(68, 68, 68);
+      border-image: initial;
+      border-radius: 3px;
     }
   `;
 
@@ -44,8 +50,9 @@
   style.textContent = css;
   document.head.insertBefore(style, document.head.firstChild);
 
-  // Can I just use the @version from above?
-  const version = '1';
+  // Store the version # in localStorage
+  // this will be useful for possible breaking changes
+  const version = GM_info.script.version;
   const keys = {
     domains: 'filter.domains',
     subreddits: 'filter.subreddits',
@@ -127,46 +134,44 @@
     });
   };
 
-  const blockClick = (e) => {
-    const { previousElementSibling } = e.target;
-    if (!previousElementSibling) {
+  let hasPopups = false;
+  // Hide any popups on click anywhere on page
+  document.body.addEventListener('click', (e) => {
+    if (hasPopups) {
+      if (!e.target.classList.contains('reddit-filter-popup')) {
+        const popups = document.getElementsByClassName('reddit-filter-popup');
+        for (let i = 0, len = popups.length; i < len; i++) {
+          const p = popups[i];
+          if (p && typeof p !== 'undefined' && p.parentNode) {
+            p.parentNode.removeChild(p);
+          }
+        }
+        hasPopups = false;
+      }
+    }
+  });
+
+  const click = (key, e) => {
+    const { target } = e;
+    let selector = ''
+      , type = '';
+    if (key === keys.subreddits) {
+      selector = '.subreddit';
+      type = 'r/';
+    } else if (key === keys.users) {
+      selector = '.author';
+      type = 'u/';
+    } else if (key === keys.domains) {
+      selector = '.domain a';
+      type = 'domain ';
+    } else {
       return;
     }
 
-    const { textContent } = previousElementSibling;
+    let block =
+      target.parentNode.parentNode.parentNode.parentNode.querySelector(selector).textContent;
 
-    let type = textContent.slice(0, 2)
-      , key = ''
-      , block = '';
-
-    if (type === 'r/') {
-      // Blocking subreddit
-      block = textContent.slice(2).toLowerCase();
-      type = 'r/';
-      key = keys.subreddits;
-
-    } else if (type === 'u/') {
-      // Blocking user subreddit
-      block = textContent.slice(2).toLowerCase();
-      type = 'u/';
-      key = keys.users;
-
-    } else if (type.slice(0, 1) === '(') {
-      // Domain
-      const [ a ] = previousElementSibling.getElementsByTagName('a');
-      if (a) {
-        block = a.textContent;
-        type = 'domain ';
-        key = keys.domains;
-      } else {
-        return;
-      }
-
-    } else {
-      block = textContent.slice(0).toLowerCase();
-      type = 'u/';
-      key = keys.users;
-    }
+    block = block.replace(/^((r|u)\/){1}/, '');
 
     if (confirm(`Are you sure you want to block ${type}${block}?`)) {
       let blocked = localStorage.getItem(key);
@@ -183,46 +188,58 @@
     }
   };
 
+  const popup = (ul, x, y) => {
+    hasPopups = true;
+
+    const div = document.createElement('div');
+    div.classList.add('reddit-filter-popup');
+    div.style.left = `${x}px`;
+    div.style.top = `${y}px`;
+
+    let button = document.createElement('button');
+    button.textContent = 'subreddit';
+    button.addEventListener('click', click.bind(this, keys.subreddits));
+    div.appendChild(button);
+
+    button = document.createElement('button');
+    button.textContent = 'user';
+    button.addEventListener('click', click.bind(this, keys.users));
+    div.appendChild(button);
+
+    button = document.createElement('button');
+    button.textContent = 'domain';
+    button.addEventListener('click', click.bind(this, keys.domains));
+    div.appendChild(button);
+
+    ul.appendChild(div);
+  };
+
+  const aClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const {
+      clientX,
+      clientY,
+      target
+    } = e;
+    const ul = target.parentNode.parentNode;
+    popup(ul, clientX, clientY);
+  };
+
   const addButtons = () => {
     for (let i = 0, len = nodes.length; i < len; i++) {
       const node = nodes[i];
-
-      const [ subreddit ] = node.getElementsByClassName('subreddit')
-      if (subreddit) {
-        // Check if button already added
-        const { nextElementSibling } = subreddit;
-        if (nextElementSibling === null || nextElementSibling.tagName !== 'BUTTON') {
-          button = button.cloneNode();
-          button.textContent = 'x';
-          button.addEventListener('click', blockClick);
-
-          subreddit.insertAdjacentElement('afterend', button);
-        }
-      }
-
-      const [ author ] = node.getElementsByClassName('author')
-      if (author) {
-        // Check if button already added
-        const { nextElementSibling } = author;
-        if (nextElementSibling === null || nextElementSibling.tagName !== 'BUTTON') {
-          button = button.cloneNode();
-          button.textContent = 'x';
-          button.addEventListener('click', blockClick);
-
-          author.insertAdjacentElement('afterend', button);
-        }
-      }
-
-      const [ domain ] = node.getElementsByClassName('domain')
-      if (domain) {
-        // Check if button already added
-        const { nextElementSibling } = domain;
-        if (nextElementSibling === null || nextElementSibling.tagName !== 'BUTTON') {
-          button = button.cloneNode();
-          button.textContent = 'x';
-          button.addEventListener('click', blockClick);
-
-          domain.insertAdjacentElement('afterend', button);
+      const buttons = node.querySelector('ul.flat-list.buttons');
+      if (buttons) {
+        if (!buttons.querySelector('.reddit-filter-li')) {
+          const li = document.createElement('li');
+          li.classList.add('reddit-filter-li');
+          const a = document.createElement('a');
+          a.textContent = 'filter';
+          a.href = '';
+          a.addEventListener('click', aClick);
+          li.appendChild(a);
+          buttons.appendChild(li);
         }
       }
     }
