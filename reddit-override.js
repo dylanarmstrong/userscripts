@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         reddit-override
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      1
+// @version      2
 // @description  Override some window.r functionality on reddit
 // @author       meinhimmel
 // @match        https://*.reddit.com/*
@@ -12,7 +12,7 @@
 
 /**
  * Override some window.r functionality
- * I am not sure what a lot of it does, except the mobile thing.
+ * I am not sure what anything other than isMobile is used for
  */
 
 (function() {
@@ -25,7 +25,10 @@
   // Stops videos being pinned at top
   window.r.utils.isMobile = () => true;
 
-  // Might do what I want?
+  // I do not know what anything beyond here does, and I just
+  // edited at things that may increase personal privacy
+
+  // Basic config attributes
   window.r.config.advertiser_category = '';
   window.r.config.anon_eventtracker_url = '';
   window.r.config.clicktracker_url = '';
@@ -34,17 +37,17 @@
   window.r.config.send_logs = false;
   window.r.config.stats_domain = '';
 
-  // Break these
+  // Completely remove these keys from window.r
   const overrides = [
     'analytics',
     'analyticsV2',
     'gtm'
   ];
 
-  const blank = function(...args) {
-    // console.log(this, 'called with', args);
-  };
+  // Blank function to throw on things
+  const blank = function() {};
 
+  // Recursive forEach
   const each = (override, key) => {
     const item = override[key];
 
@@ -56,7 +59,7 @@
       override[key] = [];
 
     } else if (typeof item === 'function') {
-      override[key] = blank.bind(key);
+      override[key] = blank;
 
     } else if (typeof item === 'object') {
       Object.keys(item).forEach(each.bind(this, item));
