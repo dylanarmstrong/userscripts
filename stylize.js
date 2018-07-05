@@ -67,9 +67,8 @@
         @import url('https://fonts.googleapis.com/css?family=Amiri');
         .messageText {
           font-family: 'Amiri', serif;
-          font-size: 20px;
-          letter-spacing: -0.1px;
-          line-height: 1.1;
+          font-size: 21px;
+          letter-spacing: 0px;
           font-weight: 400;
           text-rendering: optimizeLegibility;
         }
