@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         stylize
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      2
+// @version      3
 // @description  Add custom styles to websites
 // @author       meinhimmel
 // @match        *://*/*
@@ -57,6 +57,77 @@
       css: `
         #storytextp {
           -webkit-user-select: auto !important;
+        }
+      `
+    },
+
+    'forums.sufficientvelocity.com': {
+      type: 'string',
+      css: `
+        @import url('https://fonts.googleapis.com/css?family=Amiri');
+        .messageText {
+          font-family: 'Amiri', serif;
+          font-size: 21px;
+          letter-spacing: 0px;
+          font-weight: 400;
+          text-rendering: optimizeLegibility;
+        }
+
+        .messageUserInfo {
+          display: none;
+        }
+
+        .message .messageInfo {
+          margin-left: 0;
+          padding: 0 30px;
+        }
+
+        header,
+        .pageContent {
+          width: 94%;
+          margin: 0 auto;
+        }
+
+        .sectionMain,
+        .messageInfo.primaryContent {
+          border: 0;
+          box-shadow: none;
+        }
+
+        .discussionListItem,
+        .sectionMain,
+        .breadBoxTop,
+        .breadBoxBottom,
+        .navTabs .navTab.selected .tabLinks,
+        .message .messageInfo,
+        .mainContent,
+        .sandwichContents {
+          background-color: rgb(25, 31, 45);
+          border-color: rgb(65, 92, 135);
+        }
+
+        body,
+        #headerMover {
+          background-color: #000;
+        }
+
+        #header {
+          background-color: transparent;
+        }
+
+        .node .nodeText .nodeTitle,
+        .discussionListItem .title {
+          font-size: 18px;
+        }
+
+        .node .nodeStats,
+        .discussionListItem .secondRow {
+          font-size: 12px;
+          margin-top: 1px;
+        }
+
+        .AdContainer {
+          display: none;
         }
       `
     },
