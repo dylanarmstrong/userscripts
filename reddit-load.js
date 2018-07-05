@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         reddit-load
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      0.3
+// @version      1
 // @description  Infinite loading on scroll
 // @author       meinhimmel
 // @match        https://*.reddit.com/*

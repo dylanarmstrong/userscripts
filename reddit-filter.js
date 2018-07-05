@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         reddit-filter
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      0.9
+// @version      1
 // @description  Filter subreddits on r/all
 // @author       meinhimmel
 // @match        https://*.reddit.com/r/all/*
@@ -15,6 +15,8 @@
  * They're stored in localStorage key 'filter.subreddits'
  *
  * TODO: Add filtering of words, not sure on how to do UI for this one
+ * TODO: Copy RES and use `r/subreddit/about.json?app=res` with a popup
+ *
  */
 
 (function() {
@@ -43,7 +45,7 @@
   document.head.insertBefore(style, document.head.firstChild);
 
   // Can I just use the @version from above?
-  const version = '0.9';
+  const version = '1';
   const keys = {
     domains: 'filter.domains',
     subreddits: 'filter.subreddits',
