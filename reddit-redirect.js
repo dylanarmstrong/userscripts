@@ -1,12 +1,13 @@
 // ==UserScript==
 // @name         reddit-redirect
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      2
+// @version      3
 // @description  Redirect www to old
 // @author       meinhimmel
 // @match        https://www.reddit.com/*
 // @updateURL    https://raw.githubusercontent.com/meinhimmel/tampermonkey-scripts/master/reddit-redirect.js
 // @supportURL   https://github.com/meinhimmel/tampermonkey-scripts/issues
+// @run-at       document-start
 // @grant        none
 // ==/UserScript==
 
