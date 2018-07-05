@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         reddit-redirect
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      3
+// @version      4
 // @description  Redirect www to old
 // @author       meinhimmel
 // @match        https://www.reddit.com/*
@@ -17,9 +17,9 @@
 
 (function() {
   'use strict';
-  // Redirect to old
+  // iframe detection and redirect to old if on www
   const { href } = document.location;
-  if (href.slice(0, 12) === 'https://www.') {
+  if (window.self === window.top && href.slice(0, 12) === 'https://www.') {
     document.location.href = `https://old.${href.slice(12)}`;
   }
 })();
