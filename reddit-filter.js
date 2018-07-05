@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         reddit-filter
-// @namespace    https://www.reddit.com
-// @version      0.7
+// @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
+// @version      0.8
 // @description  Filter subreddits on r/all
 // @author       meinhimmel
 // @match        https://*.reddit.com/r/all/*
@@ -43,7 +43,7 @@
   document.head.insertBefore(style, document.head.firstChild);
 
   // Can I just use the @version from above?
-  const version = '0.7';
+  const version = '0.8';
   const keys = {
     domains: 'filter.domains',
     subreddits: 'filter.subreddits',

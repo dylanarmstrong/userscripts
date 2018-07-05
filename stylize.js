@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         stylize
-// @namespace    *
-// @version      0.1
+// @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
+// @version      0.2
 // @description  Add custom styles to websites
 // @author       meinhimmel
 // @match        *://*/*

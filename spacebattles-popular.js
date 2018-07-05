@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         spacebattles-popular
-// @namespace    https://forums.spacebattles.com/
-// @version      0.2
+// @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
+// @version      0.3
 // @description  Hide unpopular stories for easier browsing of recent
 // @author       meinhimmel
 // @match        https://forums.spacebattles.com/forums/creative-writing.18/*
