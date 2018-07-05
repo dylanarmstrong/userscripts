@@ -43,6 +43,15 @@
   const { host } = document.location;
 
   const csses = {
+    'www.speedrun.com': {
+      type: 'string',
+      css: `
+        [data-ad] {
+          display: none;
+        }
+      `
+    },
+
     'www.fanfiction.net': {
       type: 'string',
       css: `
