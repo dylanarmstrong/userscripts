@@ -11,7 +11,8 @@
 // ==/UserScript==
 
 /**
- * Override some window.r functionality that I dislike
+ * Override some window.r functionality
+ * I am not sure what a lot of it does, except the mobile thing.
  */
 
 (function() {
@@ -24,6 +25,7 @@
   // Stops videos being pinned at top
   window.r.utils.isMobile = () => true;
 
+  // Might do what I want?
   window.r.config.advertiser_category = '';
   window.r.config.anon_eventtracker_url = '';
   window.r.config.clicktracker_url = '';
@@ -32,6 +34,7 @@
   window.r.config.send_logs = false;
   window.r.config.stats_domain = '';
 
+  // Break these
   const overrides = [
     'analytics',
     'analyticsV2',
@@ -39,29 +42,33 @@
   ];
 
   const blank = function(...args) {
-    console.log(this, 'called with', args);
+    // console.log(this, 'called with', args);
   };
 
   const each = (override, key) => {
     const item = override[key];
 
+    if (!item || typeof item === 'undefined') {
+      return;
+    }
+
     if (item instanceof Array) {
-      console.log('item is array', item);
-      for (let i = 0, len = item.length; i < len; i++) {
-        console.log('sending ', item[i], key);
-        each(item[i], key);
-      }
+      override[key] = [];
 
     } else if (typeof item === 'function') {
       override[key] = blank.bind(key);
 
     } else if (typeof item === 'object') {
-      console.log('o', item, key);
       Object.keys(item).forEach(each.bind(this, item));
 
     } else if (typeof item === 'string') {
-      console.log('s', item, key);
       override[key] = '';
+
+    } else if (typeof item === 'boolean') {
+      override[key] = false;
+
+    } else if (typeof item === 'number') {
+      override[key] = 0;
     }
   };
 

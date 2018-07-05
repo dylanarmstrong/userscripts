@@ -9,6 +9,9 @@ Adds a small (x) next to subreddit names on r/all that hides the subreddit from 
 ### reddit-load.js
 When you scroll to the bottom, load the next page of results. Compatible with reddit-filter.js.
 
+### reddit-override.js
+Override some window.r functionality that *may* be interesting, I don't really know. The isMobile method stops video pinning though, which is useful.
+
 ### reddit-redirect.js
 Redirects www calls to old.reddit.com
 
