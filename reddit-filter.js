@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         reddit-filter
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      3
+// @version      4
 // @description  Filter subreddits on r/all
 // @author       meinhimmel
 // @match        https://*.reddit.com/r/all/*
@@ -26,7 +26,7 @@
       z-index: 999;
       background-color: #eee;
       border: 1px solid #bbb;
-      padding: 5px 0px 3px 5px;
+      padding: 5px 0px 2px 5px;
       border-radius: 3px;
       height: 20px;
     }
@@ -218,12 +218,12 @@
     e.preventDefault();
     e.stopPropagation();
     const {
-      clientX,
-      clientY,
+      pageX,
+      pageY,
       target
     } = e;
     const ul = target.parentNode.parentNode;
-    popup(ul, clientX, clientY);
+    popup(ul, pageX, pageY);
   };
 
   const addButtons = () => {

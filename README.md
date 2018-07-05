@@ -5,6 +5,7 @@ My personal collection of tampermonkey scripts. These can all be used independen
 
 ### reddit-filter.js
 Adds a filter at end of tagline that has a popup to filter on subreddit, domain, or user (only on r/all). They're stored in the localStorage keys starting with 'filter'. Filtered items must be removed from localStorage manually.
+
 [reddit-filter.js screenshot](https://raw.githubusercontent.com/meinhimmel/tampermonkey-scripts/master/screenshots/reddit-filter.png)
 
 ### reddit-load.js
