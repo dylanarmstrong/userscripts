@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         stylize
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      3
+// @version      4
 // @description  Add custom styles to websites
 // @author       meinhimmel
 // @match        *://*/*
@@ -142,6 +142,10 @@
           letter-spacing: 0px;
           font-weight: 400;
           text-rendering: optimizeLegibility;
+        }
+
+        #QuoteSelected {
+          display: none !important;
         }
 
         .messageUserInfo {
