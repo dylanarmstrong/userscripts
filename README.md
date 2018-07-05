@@ -19,7 +19,7 @@ Redirects www calls to old.reddit.com
 Hides unpopular stories on spacebattles, so it's easier to go through recently updated and find good stories.
 
 ### stylize.js
-Allows me to write custom styles for websites matching hosts by string or regex. Not very user friendly and you'd be best off copying the js directly into your add-on and ignoring updates.
+Allows me to write custom styles for websites matching hosts by string or regex. Not very user friendly and you'd be best off copying the js directly into your tampermonkey extension and ignoring updates.
 
 ```javascript
 const csses = {
