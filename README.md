@@ -1,7 +1,7 @@
 ## Tampermonkey Scripts
 
 ### Notes
-My personal collection of tampermonkey (greasemonkey) scripts. These can all be used independently of each other, so just grab the ones that sound interesting.
+My personal collection of tampermonkey scripts. These can all be used independently of each other, so just grab the ones that sound interesting. I primarily use Safari, and haven't tested any of these in other browsers. If you run into issues, please open an issue.
 
 ### reddit-filter.js
 Adds a small (x) next to subreddit names on r/all that hides the subreddit from r/all until removed from localStorage manually. This does not currently work with domain, word, or user filtering.
