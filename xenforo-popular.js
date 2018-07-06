@@ -14,9 +14,9 @@
 // @match        https://forums.sufficientvelocity.com/forums/user-fiction.2/*
 // @match        https://forums.sufficientvelocity.com/forums/weird-history.95/*
 // @match        https://forums.sufficientvelocity.com/forums/quests.29/*
-// @match				 https://forums.sufficientvelocity.com/forums/quests-archive.17/*
-// @match				 https://forums.sufficientvelocity.com/forums/unlisted-fiction.15/*
-// @match				 https://forums.sufficientvelocity.com/forums/archive.31/*
+// @match        https://forums.sufficientvelocity.com/forums/quests-archive.17/*
+// @match        https://forums.sufficientvelocity.com/forums/unlisted-fiction.15/*
+// @match        https://forums.sufficientvelocity.com/forums/archive.31/*
 // @updateURL    https://raw.githubusercontent.com/meinhimmel/tampermonkey-scripts/master/spacebattles-popular.js
 // @supportURL   https://github.com/meinhimmel/tampermonkey-scripts/issues
 // @grant        none
