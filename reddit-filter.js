@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         reddit-filter
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      4
+// @version      5
 // @description  Filter subreddits on r/all
 // @author       meinhimmel
 // @match        https://*.reddit.com/r/all/*
@@ -134,23 +134,6 @@
     });
   };
 
-  let hasPopups = false;
-  // Hide any popups on click anywhere on page
-  document.body.addEventListener('click', (e) => {
-    if (hasPopups) {
-      if (!e.target.classList.contains('reddit-filter-popup')) {
-        const popups = document.getElementsByClassName('reddit-filter-popup');
-        for (let i = 0, len = popups.length; i < len; i++) {
-          const p = popups[i];
-          if (p && typeof p !== 'undefined' && p.parentNode) {
-            p.parentNode.removeChild(p);
-          }
-        }
-        hasPopups = false;
-      }
-    }
-  });
-
   const click = (key, e) => {
     const { target } = e;
     let selector = ''
@@ -188,6 +171,26 @@
     }
   };
 
+  let hasPopups = false;
+
+  const closePopups = (e = null) => {
+    if (hasPopups) {
+      if (!e || !e.target.classList.contains('reddit-filter-popup')) {
+        const popups = document.getElementsByClassName('reddit-filter-popup');
+        for (let i = 0, len = popups.length; i < len; i++) {
+          const p = popups[i];
+          if (p && typeof p !== 'undefined' && p.parentNode) {
+            p.parentNode.removeChild(p);
+          }
+        }
+        hasPopups = false;
+      }
+    }
+  };
+
+  // Hide any popups on click anywhere on page
+  document.body.addEventListener('click', closePopups);
+
   const popup = (ul, x, y) => {
     hasPopups = true;
 
@@ -223,6 +226,7 @@
       target
     } = e;
     const ul = target.parentNode.parentNode;
+    closePopups();
     popup(ul, pageX, pageY);
   };
 
