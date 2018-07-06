@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         spacebattles-popular
+// @name         xenforo-popular
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
 // @version      1
 // @description  Hide unpopular stories for easier browsing of recent
@@ -10,13 +10,22 @@
 // @match        https://forums.spacebattles.com/forums/roleplaying-quests-story-debates.60/*
 // @match        https://forums.spacebattles.com/forums/creative-writing-archives.40/*
 // @match        https://forums.spacebattles.com/forums/the-index.63/*
+// @match        https://forums.sufficientvelocity.com/forums/worm.94/*
+// @match        https://forums.sufficientvelocity.com/forums/user-fiction.2/*
+// @match        https://forums.sufficientvelocity.com/forums/weird-history.95/*
+// @match        https://forums.sufficientvelocity.com/forums/quests.29/*
+// @match				 https://forums.sufficientvelocity.com/forums/quests-archive.17/*
+// @match				 https://forums.sufficientvelocity.com/forums/unlisted-fiction.15/*
+// @match				 https://forums.sufficientvelocity.com/forums/archive.31/*
 // @updateURL    https://raw.githubusercontent.com/meinhimmel/tampermonkey-scripts/master/spacebattles-popular.js
 // @supportURL   https://github.com/meinhimmel/tampermonkey-scripts/issues
 // @grant        none
 // ==/UserScript==
 
 /**
- * Hides unpopular stories on spacebattles
+ * Hides unpopular stories on spacebattles / sufficient velocity
+ *
+ * TODO: It says xenforo.. but it only works for 2 sites, add alternatehistory
  */
 
 (function() {

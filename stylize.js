@@ -98,6 +98,10 @@
           box-shadow: none;
         }
 
+        .nodeList .categoryForumNodeInfo,
+        .nodeList .forumNodeInfo,
+        .nodeList .pageNodeInfo,
+        .nodeList .linkNodeInfo,
         .discussionListItem,
         .sectionMain,
         .breadBoxTop,

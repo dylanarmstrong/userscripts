@@ -17,8 +17,8 @@ Override Reddit's official window.r functionality that *may* be interesting, I d
 ### reddit-redirect.js
 Redirects www calls to old.reddit.com
 
-### spacebattles-popular.js
-Hides unpopular stories on spacebattles, so it's easier to go through recently updated and find good stories.
+### xenforo-popular.js
+Hides unpopular stories on spacebattles / sufficientvelocity, so it's easier to go through recently updated and find good stories.
 
 ### stylize.js
 Allows me to write custom styles for websites matching hosts by string or regex. Not very user friendly and you'd be best off copying the js directly into your tampermonkey extension and ignoring updates.
