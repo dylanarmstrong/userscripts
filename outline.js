@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         outline
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      1
+// @version      2
 // @description  Open some links on HN / Reddit in outline
 // @author       meinhimmel
 // @match        https://news.ycombinator.com/*
@@ -19,7 +19,6 @@
 
 (function() {
   'use strict';
-  const as = document.getElementsByTagName('a');
   const domains = [
     'arstechnica.com',
     'bbc.com',
@@ -38,20 +37,29 @@
     'wsj.com'
   ];
 
-  for (let i = 0, len = as.length; i < len; i++) {
-    let set = false;
-    const a = as[i];
-    const { href } = a;
-    // If it's already set move on
-    if (!href.match(/https:\/\/outline.com.*$/)) {
-      for (let j = 0, _len = domains.length; j < len && !set; j++) {
-        // Could change to regex, but then it's more annoying to add domains
-        if (href.indexOf(domains[j]) > -1) {
-          a.href = `https://outline.com/${href}`;
-          set = true;
+  const loop = () => {
+    const as = document.getElementsByTagName('a');
+
+    for (let i = 0, len = as.length; i < len; i++) {
+      let set = false;
+      const a = as[i];
+      const { href } = a;
+      // If it's already set move on
+      if (!href.match(/https:\/\/outline.com.*$/)) {
+        for (let j = 0, _len = domains.length; j < len && !set; j++) {
+          // Could change to regex, but then it's more annoying to add domains
+          if (href.indexOf(domains[j]) > -1) {
+            a.href = `https://outline.com/${href}`;
+            set = true;
+          }
         }
       }
     }
-  }
+  };
+
+  loop();
+
+  // reddit-load.js compatibility
+  document.addEventListener('reddit-load', loop);
 })();
 
