@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         xenforo-popular
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      1
+// @version      2
 // @description  Hide unpopular stories for easier browsing of recent
 // @author       meinhimmel
 // @match        https://forums.spacebattles.com/forums/creative-writing.18/*
@@ -17,7 +17,7 @@
 // @match        https://forums.sufficientvelocity.com/forums/quests-archive.17/*
 // @match        https://forums.sufficientvelocity.com/forums/unlisted-fiction.15/*
 // @match        https://forums.sufficientvelocity.com/forums/archive.31/*
-// @updateURL    https://raw.githubusercontent.com/meinhimmel/tampermonkey-scripts/master/spacebattles-popular.js
+// @updateURL    https://raw.githubusercontent.com/meinhimmel/tampermonkey-scripts/master/xenforo-popular.js
 // @supportURL   https://github.com/meinhimmel/tampermonkey-scripts/issues
 // @grant        none
 // ==/UserScript==
