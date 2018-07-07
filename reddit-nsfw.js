@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         reddit-nsfw
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      1
+// @version      2
 // @description  Filter all NSFW content
 // @author       meinhimmel
 // @match        https://*.reddit.com/*
@@ -16,11 +16,18 @@
 
 (function() {
   'use strict';
-  const items = document.querySelectorAll('[data-nsfw="true"]');
-  for (let i = 0, len = items.length; i < len; i++) {
-    const item = items[i];
-    if (item && item.parentNode) {
-      item.parentNode.removeChild(item);
+
+  const hide = () => {
+    const items = document.querySelectorAll('[data-nsfw="true"]');
+    for (let i = 0, len = items.length; i < len; i++) {
+      const item = items[i];
+      if (item && item.parentNode) {
+        item.parentNode.removeChild(item);
+      }
     }
-  }
+  };
+
+  // reddit-load.js compatibility
+  document.addEventListener('reddit-load', hide);
 })();
+
