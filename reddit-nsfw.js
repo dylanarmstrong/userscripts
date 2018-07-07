@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         reddit-nsfw
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      2
+// @version      3
 // @description  Filter all NSFW content
 // @author       meinhimmel
 // @match        https://*.reddit.com/*
@@ -26,6 +26,8 @@
       }
     }
   };
+
+  hide();
 
   // reddit-load.js compatibility
   document.addEventListener('reddit-load', hide);
