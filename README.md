@@ -14,6 +14,9 @@ Adds a filter at end of tagline that has a popup to filter on subreddit, domain,
 ### reddit-load.js
 When you scroll to the bottom, load the next page of results. Compatible with reddit-filter.js.
 
+### reddit-nsfw.js
+Filter all NSFW tags from appearing on any page
+
 ### reddit-override.js
 Override Reddit's official window.r functionality that *may* be interesting, I don't really know. The isMobile method stops video pinning though, which is useful.
 
