@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         reddit-filter
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      5
+// @version      6
 // @description  Filter subreddits on r/all
 // @author       meinhimmel
 // @match        https://*.reddit.com/r/all/*
@@ -154,7 +154,7 @@
     let block =
       target.parentNode.parentNode.parentNode.parentNode.querySelector(selector).textContent;
 
-    block = block.replace(/^((r|u)\/){1}/, '');
+    block = block.replace(/^((r|u)\/){1}/, '').toLowerCase();
 
     if (confirm(`Are you sure you want to block ${type}${block}?`)) {
       let blocked = localStorage.getItem(key);
