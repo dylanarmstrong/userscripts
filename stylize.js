@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         stylize
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      6
+// @version      7
 // @description  Add custom styles to websites
 // @author       meinhimmel
 // @match        *://*/*
@@ -144,9 +144,11 @@
       type: 'string',
       css: `
         @import url('https://fonts.googleapis.com/css?family=Amiri');
+        .messageText span,
+        .messageText p,
         .messageText {
           font-family: 'Amiri', serif;
-          font-size: 21px;
+          font-size: 21px !important;
           letter-spacing: 0px;
           font-weight: 400;
           text-rendering: optimizeLegibility;
