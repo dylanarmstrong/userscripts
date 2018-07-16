@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         stylize
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      7
+// @version      8
 // @description  Add custom styles to websites
 // @author       meinhimmel
 // @match        *://*/*
@@ -61,13 +61,40 @@
       `
     },
 
+    'www.alternatehistory.com': {
+      type: 'string',
+      css: `
+        @import url('https://fonts.googleapis.com/css?family=Amiri');
+        .messageText span,
+        .messageText p,
+        .messageText {
+          font-family: 'Amiri', serif;
+          font-size: 21px !important;
+          letter-spacing: 0px;
+          font-weight: 400;
+          text-rendering: optimizeLegibility;
+        }
+
+        #QuoteSelected {
+          display: none !important;
+        }
+
+        #messageList {
+          width: 80%;
+          margin: 0 auto;
+        }
+      `
+    },
+
     'forums.sufficientvelocity.com': {
       type: 'string',
       css: `
         @import url('https://fonts.googleapis.com/css?family=Amiri');
+        .messageText span,
+        .messageText p,
         .messageText {
           font-family: 'Amiri', serif;
-          font-size: 21px;
+          font-size: 21px !important;
           letter-spacing: 0px;
           font-weight: 400;
           text-rendering: optimizeLegibility;
