@@ -50,3 +50,6 @@ const csses = {
 ### xenforo-popular.js
 Hides unpopular stories on spacebattles / sufficientvelocity, so it's easier to go through recently updated and find good stories.
 
+### youtube.js
+Disable youtube polymer
+
