@@ -3,6 +3,9 @@
 ### Notes
 My personal collection of tampermonkey scripts. These can all be used independently of each other, so just grab the ones that sound interesting. I primarily use Safari, and haven't tested any of these in other browsers. If you run into issues, please open an issue.
 
+### facebook-marketplace
+Sort facebook marketplace by date
+
 ### outline.js
 Open some outgoing links (mostly news) from HN and Reddit using the awesome [outline.com](https://outline.com) service.
 
