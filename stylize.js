@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         stylize
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      8
+// @version      9
 // @description  Add custom styles to websites
 // @author       meinhimmel
 // @match        *://*/*
@@ -47,6 +47,15 @@
       type: 'string',
       css: `
         [data-ad] {
+          display: none;
+        }
+      `
+    },
+
+    'offerup.com': {
+      type: 'string',
+      css: `
+        .db-ad-tile {
           display: none;
         }
       `
