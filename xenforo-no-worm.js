@@ -20,7 +20,7 @@
 
 (function() {
   'use strict';
-  console.log(`Removing stories that match /[Ww]orm/ because of xenforo-no-worm.js.`);
+  console.log(`Removing stories that include 'worm' in title because of xenforo-no-worm.js.`);
   const elements = document.querySelectorAll('h3.title');
   for (let i = 0, len = elements.length; i < len; i++) {
     const element = elements[i];
