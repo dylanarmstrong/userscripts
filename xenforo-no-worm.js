@@ -24,7 +24,7 @@
   const elements = document.querySelectorAll('h3.title');
   for (let i = 0, len = elements.length; i < len; i++) {
     const element = elements[i];
-    if (element.textContent.match(/[Ww]orm/)) {
+    if (element.textContent.toLowerCase().indexOf('worm') > -1) {
       const p = element.parentNode.parentNode.parentNode;
       p.parentNode.removeChild(p);
     }
