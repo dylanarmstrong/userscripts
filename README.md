@@ -50,8 +50,14 @@ const csses = {
 };
 ```
 
+### xenforo-no-worm.js
+Remove worm stories, except from worm specific forums
+
 ### xenforo-popular.js
 Hides unpopular stories on spacebattles / sufficientvelocity, so it's easier to go through recently updated and find good stories.
+
+### xenforo-search.js
+Remove posts from search results, only show threads
 
 ### youtube.js
 Disable youtube polymer
