@@ -9,6 +9,9 @@ Sort facebook marketplace by date
 ### outline.js
 Open some outgoing links (mostly news) from HN and Reddit using the awesome [outline.com](https://outline.com) service.
 
+### paradoxwikis.js
+Achievements page on EU4 wiki is using some new mobile style, so just delete it all and use no style. Tables are usable as-is.
+
 ### reddit-filter.js
 Adds a filter at end of tagline that has a popup to filter on subreddit, domain, or user (only on r/all). They're stored in the localStorage keys starting with 'filter'. Filtered items must be removed from localStorage manually.
 
