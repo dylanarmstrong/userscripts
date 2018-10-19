@@ -53,6 +53,9 @@ const csses = {
 };
 ```
 
+### xenforo-no-fanwork.js
+Remove fanwork discussions from main user forum on sufficientvelocity
+
 ### xenforo-no-worm.js
 Remove worm stories, except from worm specific forums
 
