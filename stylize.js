@@ -176,6 +176,23 @@
       `
     },
 
+    'www.wuxiaworld.co': {
+      type: 'string',
+      css: `
+        @import url('https://fonts.googleapis.com/css?family=Amiri');
+        .box_con #content,
+        .box_con #content div,
+        .box_con #content a {
+          color: #222;
+          font-family: 'Amiri', serif;
+          font-size: 21px !important;
+          letter-spacing: 0px;
+          font-weight: 400;
+          text-rendering: optimizeLegibility;
+        }
+      `
+    },
+
     'www.wuxiaworld.com': {
       type: 'string',
       css: `
