@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         stylize
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      9
+// @version      10
 // @description  Add custom styles to websites
 // @author       meinhimmel
 // @match        *://*/*
@@ -172,6 +172,26 @@
 
         .AdContainer {
           display: none;
+        }
+      `
+    },
+
+    'www.wuxiaworld.com': {
+      type: 'string',
+      css: `
+        @import url('https://fonts.googleapis.com/css?family=Amiri');
+        #content-container {
+          width: 100%;
+        }
+        #sidebar {
+          display: none;
+        }
+        .fr-view {
+          font-family: 'Amiri', serif;
+          font-size: 21px !important;
+          letter-spacing: 0px;
+          font-weight: 400;
+          text-rendering: optimizeLegibility;
         }
       `
     },
