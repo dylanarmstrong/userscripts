@@ -61,7 +61,7 @@
       `
     },
 
-    'www.fictionpress.net': {
+    'www.fictionpress.com': {
       type: 'string',
       css: `
         #storytextp {
