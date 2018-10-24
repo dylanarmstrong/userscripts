@@ -61,6 +61,15 @@
       `
     },
 
+    'www.fictionpress.net': {
+      type: 'string',
+      css: `
+        #storytextp {
+          -webkit-user-select: auto !important;
+        }
+      `
+    },
+
     'www.fanfiction.net': {
       type: 'string',
       css: `
