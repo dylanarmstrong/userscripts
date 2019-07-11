@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         stylize
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      11
+// @version      12
 // @description  Add custom styles to websites
 // @author       meinhimmel
 // @match        *://*/*
@@ -234,8 +234,9 @@
         border-top-right-radius: 0;
       }
     `,
-
-    'old.reddit.com': `
+    '(np|old|www)?\.reddit.com': `
+      .premium-banner-outer,
+      #redesign-beta-optin-btn,
       .listing-chooser.initialized,
       .entry .buttons .give-gold-button,
       .entry .buttons .share,
@@ -266,4 +267,5 @@
     }
   }
 })();
+
 
