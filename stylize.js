@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         stylize
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      12
+// @version      13
 // @description  Add custom styles to websites
 // @author       meinhimmel
 // @match        *://*/*
@@ -169,6 +169,17 @@
       }
     `,
 
+    'www.royalroad.com': `
+      .wide,
+      .fic-header + .portlet,
+      .chapter-content + .bold,
+      .chapter-content + .bold + .wide + hr,
+      #donate + .bold,
+      #donate + .bold + .row {
+        display: none;
+      }
+    `,
+
     'www.wuxiaworld.com': `
       @import url('https://fonts.googleapis.com/css?family=Amiri');
       #content-container {
@@ -267,5 +278,3 @@
     }
   }
 })();
-
-
