@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         medium
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      2
+// @version      3
 // @description  Uncrap medium
 // @author       meinhimmel
 // @match        *://*/*
@@ -65,17 +65,16 @@
     // Remove large blank space after header
     test(() => document.querySelector('nav').nextElementSibling.remove());
 
-    // Remove medium sign in bar at top
-    test(() =>
-      document.querySelector('[aria-label="Homepage"]').parentNode.parentNode.parentNode.parentNode.remove()
-    );
-
     const readable = () => {
       // Remove fixed header
-      document.querySelector('nav').style.position = 'relative';
+      test(() => (
+        document.querySelector('nav').style.position = 'relative'
+      ));
 
       // Remove iframe for google sign in
-      document.querySelector('iframe').remove();
+      test(() =>
+        document.querySelector('iframe').remove()
+      );
 
       // Remove flickering sidebar
       test(() => document.querySelector('[data-test-id="post-sidebar"]').remove());
@@ -102,6 +101,17 @@
       if (typeof h3 !== 'undefined') {
         test(() => {
           const overlay = h3.parentNode.parentNode.parentNode.parentNode.parentNode;
+          overlay.parentNode.removeChild(overlay);
+        });
+      }
+
+      let h2;
+      document.querySelectorAll('h2')
+        .forEach(el => el.textContent.includes('Get one more story in your member preview') && (h2 = el));
+
+      if (typeof h2 !== 'undefined') {
+        test(() => {
+          const overlay = h2.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
           overlay.parentNode.removeChild(overlay);
         });
       }
