@@ -61,7 +61,6 @@
     // May not have localStorage
     test(() => localStorage.clear());
 
-
     // Only do these once, as otherwise mutations will grab content
     // Remove large blank space after header
     test(() => document.querySelector('nav').nextElementSibling.remove());
