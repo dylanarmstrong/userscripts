@@ -33,7 +33,8 @@
         cursor: default !important;
       }
 
-      a {
+      a,
+      button {
         cursor: pointer !important;
       }
 
