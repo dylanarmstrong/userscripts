@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         medium
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      3
+// @version      4
 // @description  Uncrap medium
 // @author       meinhimmel
 // @match        *://*/*
@@ -129,10 +129,10 @@
         const img = document.createElement('img');
         const src = hidden.textContent.match(/src="(https:\/\/[^"]+)"/);
         if (src) {
-          img.src = src[1];
-          test(() => (
+          test(() => {
+            img.src = src[1];
             img.className = hidden.textContent.match(/class="([^"]+)"/)[1]
-          ));
+          });
           hidden.parentNode.appendChild(img);
         }
       });
