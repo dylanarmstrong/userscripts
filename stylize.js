@@ -171,6 +171,7 @@
 
     'forums.spacebattles.com': `
       @import url('https://fonts.googleapis.com/css?family=Amiri');
+
       .messageText span,
       .messageText p,
       .messageText {
@@ -208,6 +209,10 @@
       .discussionListItem .secondRow {
         font-size: 12px;
         margin-top: 1px;
+      }
+
+      .listBlock.stats.pairsJustified dl:nth-child(2) {
+        margin-bottom: 0;
       }
 
       #QuickSearch {
