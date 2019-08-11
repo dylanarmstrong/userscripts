@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         stylize
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      13
+// @version      14
 // @description  Add custom styles to websites
 // @author       meinhimmel
 // @match        *://*/*
@@ -79,84 +79,56 @@
 
     'forums.sufficientvelocity.com': `
       @import url('https://fonts.googleapis.com/css?family=Amiri');
-      .messageText span,
-      .messageText p,
-      .messageText {
+
+      .p-body {
+        background: #131C26;
+      }
+
+      .tooltip.tooltip--basic.tooltip--bottom.tooltip--selectToQuote {
+        display: none !important;
+      }
+
+      .block--messages .message-cell--threadmark-header,
+      .block--messages .message-cell--threadmark-footer,
+      .message-cell,
+      .bbCodeBlock,
+      .block-body {
+        background-color: rgb(25, 31, 45);
+      }
+
+      .bbWrapper,
+      .message-body,
+      .message-body .bbCodeBlock.bbCodeBlock-content,
+      .fr-box.fr-basic textarea.input,
+      .fr-box.fr-basic .fr-element,
+      .bbCodePreview-content {
         font-family: 'Amiri', serif;
-        font-size: 21px !important;
+        font-size: 21px;
         letter-spacing: 0px;
         font-weight: 400;
         text-rendering: optimizeLegibility;
       }
 
-      #QuoteSelected {
-        display: none !important;
-      }
-
-      .messageUserInfo {
-        display: none;
-      }
-
-      .message .messageInfo {
-        margin-left: 0;
-        padding: 0 30px;
-      }
-
-      header,
-      .pageContent {
-        width: 94%;
-        margin: 0 auto;
-      }
-
-      .sectionMain,
-      .messageInfo.primaryContent {
-        border: 0;
-        box-shadow: none;
-      }
-
-      .nodeList .categoryForumNodeInfo,
-      .nodeList .forumNodeInfo,
-      .nodeList .pageNodeInfo,
-      .nodeList .linkNodeInfo,
-      .discussionListItem,
-      .sectionMain,
-      .breadBoxTop,
-      .breadBoxBottom,
-      .navTabs .navTab.selected .tabLinks,
-      .message .messageInfo,
-      .mainContent,
-      .sandwichContents {
-        background-color: rgb(25, 31, 45);
-        border-color: rgb(65, 92, 135);
-      }
-
-      body,
-      #headerMover {
-        background-color: #000;
-      }
-
-      #header {
-        background-color: transparent;
-      }
-
-      .node .nodeText .nodeTitle,
-      .discussionListItem .title {
-        font-size: 18px;
-      }
-
-      .node .nodeStats,
-      .discussionListItem .secondRow {
-        font-size: 12px;
-        margin-top: 1px;
+      .structItem-title {
+        color: rgb(228, 139, 43);
       }
 
       .AdContainer {
+        display: none;
+      }
+
+      .p-navSticky {
+        position: relative;
+      }
+
+      .message-cell--user {
         display: none;
       }
     `,
 
     'www.wuxiaworld.co': `
       @import url('https://fonts.googleapis.com/css?family=Amiri');
+
       .box_con #content,
       .box_con #content div,
       .box_con #content a {

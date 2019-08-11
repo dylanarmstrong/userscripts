@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         xenforo-popular
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      2
+// @version      3
 // @description  Hide unpopular stories for easier browsing of recent
 // @author       meinhimmel
 // @match        https://forums.spacebattles.com/forums/creative-writing.18/*
@@ -33,16 +33,23 @@
   const viewLimit = 50000;
   const replyLimit = 100;
   const hidden = [];
+  const isVelocity = document.location.host.includes('forums.sufficientvelocity.com');
 
   const viewEach = (element) => {
-    const viewCount = Number(element.textContent.replace(',', ''));
+    const textContent = element.textContent.trim().toLowerCase();
+    const k = textContent.endsWith('k') ? 1000 : 1;
+    const m = textContent.endsWith('m') ? 1000 * 1000 : 1;
+    const viewCount = Number(textContent.replace(/[,km]/g, '')) * k * m;
     if (viewCount < viewLimit) {
       hidden.push(element);
     }
   };
 
   const replyEach = (element) => {
-    const replyCount = Number(element.textContent.replace(',', ''));
+    const textContent = element.textContent.trim().toLowerCase();
+    const k = textContent.endsWith('k') ? 1000 : 1;
+    const m = textContent.endsWith('m') ? 1000 * 1000 : 1;
+    const replyCount = Number(textContent.replace(/[,km]/g, '')) * k * m;
     if (replyCount > replyLimit) {
       if (hidden.includes(element)) {
         hidden.remove(element);
@@ -50,9 +57,13 @@
     }
   };
 
-  let elements = document.querySelectorAll('dl.minor dd');
+  let elements =
+    document
+      .querySelectorAll(isVelocity ? '.structItem-cell.structItem-cell--meta dl:nth-child(2) dd' : 'dl.minor dd');
   elements.forEach(viewEach);
-  elements = document.querySelectorAll('dl.major dd');
+  elements =
+    document
+      .querySelectorAll(isVelocity ? '.structItem-cell.structItem-cell--meta dl:nth-child(1) dd' : 'dl.major dd');
   elements.forEach(replyEach);
 
   for (let i = 0, len = hidden.length; i < len; i++) {
@@ -62,5 +73,26 @@
       p.parentNode.removeChild(p);
     }
   }
+
+  // Append reactions
+  document
+    .querySelectorAll(isVelocity ? '.structItem-cell.structItem-cell--meta' : '.listBlock.stats.pairsJustified')
+    .forEach(element => {
+      const reactions = element.title.replace(/[^0-9]/g, '');
+      const dl = document.createElement('dl');
+      if (isVelocity) {
+        dl.classList.add('pairs');
+        dl.classList.add('pairs--justified');
+      } else {
+        dl.classList.add('minor');
+      }
+      const dt = document.createElement('dt');
+      dt.textContent = 'Reactions';
+      dl.appendChild(dt);
+      const dd = document.createElement('dd');
+      dd.textContent = reactions;
+      dl.appendChild(dd);
+      element.appendChild(dl);
+    });
 })();
 
