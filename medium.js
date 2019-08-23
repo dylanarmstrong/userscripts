@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         medium
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      4
+// @version      5
 // @description  Uncrap medium
 // @author       meinhimmel
 // @match        *://*/*
@@ -95,6 +95,17 @@
         );
 
       // Remove pardon the interruption bar
+      let p;
+      document.querySelectorAll('p')
+        .forEach(el => el.textContent.includes('To make Medium work, we log user data.') && (p = el));
+
+      if (typeof p !== 'undefined') {
+        test(() => {
+          const overlay = p.parentNode.parentNode.parentNode.parentNode.parentNode;
+          overlay.parentNode.removeChild(overlay);
+        });
+      }
+
       let h3;
       document.querySelectorAll('h3')
         .forEach(el => el.textContent.includes('Pardon the interruption') && (h3 = el));
