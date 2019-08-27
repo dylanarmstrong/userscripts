@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         medium
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      5
+// @version      6
 // @description  Uncrap medium
 // @author       meinhimmel
 // @match        *://*/*
@@ -34,7 +34,9 @@
       }
 
       a,
-      button {
+      a h3,
+      button,
+      img[src] {
         cursor: pointer !important;
       }
 
@@ -64,7 +66,7 @@
 
     // Only do these once, as otherwise mutations will grab content
     // Remove large blank space after header
-    test(() => document.querySelector('nav').nextElementSibling.remove());
+    test(() => (document.querySelector('nav').nextElementSibling.style.display = 'none'));
 
     const readable = () => {
       // Remove fixed header
@@ -74,25 +76,11 @@
 
       // Remove iframe for google sign in
       test(() =>
-        document.querySelector('iframe').remove()
+        document.querySelector('iframe[src^="https://smartlock"]').remove()
       );
 
       // Remove flickering sidebar
-      test(() => document.querySelector('[data-test-id="post-sidebar"]').remove());
-
-      // Remove clicky & hover stuff, this isn't working
-      document.querySelectorAll('*')
-        .forEach(el =>
-          [
-            'click',
-            'keydown',
-            'keypress',
-            'mousedown',
-            'mouseout',
-            'mouseover',
-            'mouseup'
-          ].forEach(evt => el.removeEventListener(evt) && (el[evt] = () => undefined))
-        );
+      test(() => (document.querySelector('[data-test-id="post-sidebar"]').style.display = 'none'));
 
       // Remove pardon the interruption bar
       let p;
