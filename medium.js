@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         medium
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      6
+// @version      7
 // @description  Uncrap medium
 // @author       meinhimmel
 // @match        *://*/*
@@ -140,9 +140,24 @@
       test(() => document.querySelector('[tabindex="-1"]').parentNode.remove());
     };
 
+    // Heh.
+    const clone = () => {
+      test(() => {
+        const root = document.getElementById('root');
+        const clone = root.cloneNode(true);
+        clone.id = '_root';
+        root.parentNode.removeChild(root);
+        document.body.insertBefore(clone, document.body.firstChild);
+      });
+    };
+
+    // Run this twice, then clone the root element
     readable();
 
-    setTimeout(readable, 1000);
+    setTimeout(() => {
+      readable()
+      clone();
+    }, 250);
   }
 })();
 
