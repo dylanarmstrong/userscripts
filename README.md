@@ -1,5 +1,10 @@
 ## Tampermonkey Scripts
 
+## Safari 13
+Create Safari extension and replace contents of `script.js` with the local version here. Ensure the allowed domains is `*`. Beyond that, eh, it works well enough.
+
+## Legacy 
+
 ### Notes
 My personal collection of tampermonkey scripts. These can all be used independently of each other, so just grab the ones that sound interesting. I primarily use Safari, and haven't tested any of these in other browsers. If you run into issues, please open an issue.
 
@@ -28,6 +33,9 @@ Override Reddit's official window.r functionality that *may* be interesting, I d
 
 ### reddit-redirect.js
 Redirects www calls to old.reddit.com
+
+### script.js
+__NOT__ a tampermonkey script, this is the script for a Safari addon
 
 ### stylize.js
 Allows me to write custom styles for websites matching hosts by string or regex. Not very user friendly and you'd be best off copying the js directly into your tampermonkey extension and ignoring updates.
