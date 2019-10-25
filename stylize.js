@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         stylize
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      14
+// @version      15
 // @description  Add custom styles to websites
 // @author       meinhimmel
 // @match        *://*/*
@@ -172,54 +172,49 @@
     'forums.spacebattles.com': `
       @import url('https://fonts.googleapis.com/css?family=Amiri');
 
-      .messageText span,
-      .messageText p,
-      .messageText {
+      .p-body {
+        background: #131C26;
+      }
+
+      .tooltip.tooltip--basic.tooltip--bottom.tooltip--selectToQuote {
+        display: none !important;
+      }
+
+      .block--messages .message-cell--threadmark-header,
+      .block--messages .message-cell--threadmark-footer,
+      .message-cell,
+      .bbCodeBlock,
+      .block-body {
+        background-color: rgb(25, 31, 45);
+      }
+
+      .bbWrapper,
+      .message-body,
+      .message-body .bbCodeBlock.bbCodeBlock-content,
+      .fr-box.fr-basic textarea.input,
+      .fr-box.fr-basic .fr-element,
+      .bbCodePreview-content {
         font-family: 'Amiri', serif;
-        font-size: 21px !important;
+        font-size: 21px;
         letter-spacing: 0px;
         font-weight: 400;
         text-rendering: optimizeLegibility;
       }
 
-      #QuoteSelected {
-        display: none !important;
+      .structItem-title {
+        color: rgb(228, 139, 43);
       }
 
-      .messageUserInfo {
+      .AdContainer {
         display: none;
       }
 
-      .message .messageInfo {
-        margin-left: 0;
-        padding: 0 30px;
+      .p-navSticky {
+        position: relative;
       }
 
-      .pageContent {
-        width: 85%;
-        margin: 0 auto;
-      }
-
-      .node .nodeText .nodeTitle,
-      .discussionListItem .title {
-        font-size: 18px;
-      }
-
-      .node .nodeStats,
-      .discussionListItem .secondRow {
-        font-size: 12px;
-        margin-top: 1px;
-      }
-
-      .listBlock.stats.pairsJustified dl:nth-child(2) {
-        margin-bottom: 0;
-      }
-
-      #QuickSearch {
-        top: -29px;
-        right: 95px;
-        border-right: 1px solid rgb(65, 92, 135);
-        border-top-right-radius: 0;
+      .message-cell--user {
+        display: none;
       }
     `,
     '(np|old|www)?\.reddit.com': `

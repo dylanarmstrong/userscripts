@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         xenforo-popular
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      3
+// @version      4
 // @description  Hide unpopular stories for easier browsing of recent
 // @author       meinhimmel
 // @match        https://forums.spacebattles.com/forums/creative-writing.18/*
@@ -33,7 +33,6 @@
   const viewLimit = 50000;
   const replyLimit = 100;
   const hidden = [];
-  const isVelocity = document.location.host.includes('forums.sufficientvelocity.com');
 
   const viewEach = (element) => {
     const textContent = element.textContent.trim().toLowerCase();
@@ -59,11 +58,11 @@
 
   let elements =
     document
-      .querySelectorAll(isVelocity ? '.structItem-cell.structItem-cell--meta dl:nth-child(2) dd' : 'dl.minor dd');
+      .querySelectorAll('.structItem-cell.structItem-cell--meta dl:nth-child(2) dd');
   elements.forEach(viewEach);
   elements =
     document
-      .querySelectorAll(isVelocity ? '.structItem-cell.structItem-cell--meta dl:nth-child(1) dd' : 'dl.major dd');
+      .querySelectorAll('.structItem-cell.structItem-cell--meta dl:nth-child(1) dd');
   elements.forEach(replyEach);
 
   for (let i = 0, len = hidden.length; i < len; i++) {
@@ -76,16 +75,12 @@
 
   // Append reactions
   document
-    .querySelectorAll(isVelocity ? '.structItem-cell.structItem-cell--meta' : '.listBlock.stats.pairsJustified')
+    .querySelectorAll('.structItem-cell.structItem-cell--meta')
     .forEach(element => {
       const reactions = element.title.replace(/[^0-9]/g, '');
       const dl = document.createElement('dl');
-      if (isVelocity) {
-        dl.classList.add('pairs');
-        dl.classList.add('pairs--justified');
-      } else {
-        dl.classList.add('minor');
-      }
+      dl.classList.add('pairs');
+      dl.classList.add('pairs--justified');
       const dt = document.createElement('dt');
       dt.textContent = 'Reactions';
       dl.appendChild(dt);
