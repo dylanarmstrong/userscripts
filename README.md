@@ -33,7 +33,12 @@ Redirects www calls to old.reddit.com
 __NOT__ a tampermonkey script, this is the script for a Safari addon
 
 ### stylize.js
+
+@deprecated
+
 Allows me to write custom styles for websites matching hosts by string or regex. Not very user friendly and you'd be best off copying the js directly into your tampermonkey extension and ignoring updates.
+
+Replaced with styles in Cascadea.
 
 ```javascript
 const csses = {
