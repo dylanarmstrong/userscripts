@@ -72,22 +72,5 @@
       p.parentNode.removeChild(p);
     }
   }
-
-  // Append reactions
-  document
-    .querySelectorAll('.structItem-cell.structItem-cell--meta')
-    .forEach(element => {
-      const reactions = element.title.replace(/[^0-9]/g, '');
-      const dl = document.createElement('dl');
-      dl.classList.add('pairs');
-      dl.classList.add('pairs--justified');
-      const dt = document.createElement('dt');
-      dt.textContent = 'Reactions';
-      dl.appendChild(dt);
-      const dd = document.createElement('dd');
-      dd.textContent = reactions;
-      dl.appendChild(dd);
-      element.appendChild(dl);
-    });
 })();
 

@@ -33,7 +33,6 @@ Redirects www calls to old.reddit.com
 __NOT__ a tampermonkey script, this is the script for a Safari addon
 
 ### stylize.js
-
 @deprecated
 
 Allows me to write custom styles for websites matching hosts by string or regex. Not very user friendly and you'd be best off copying the js directly into your tampermonkey extension and ignoring updates.
@@ -69,6 +68,9 @@ Remove worm stories, except from worm specific forums
 
 ### xenforo-popular.js
 Hides unpopular stories on spacebattles / sufficientvelocity, so it's easier to go through recently updated and find good stories.
+
+### xenforo-reactions.js
+Adds first message reaction score on alternate-history, sufficientvelocity and spacebattles.
 
 ### xenforo-search.js
 Remove posts from search results, only show threads
