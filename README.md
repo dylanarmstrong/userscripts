@@ -6,6 +6,9 @@ My personal collection of tampermonkey scripts. These can all be used independen
 ### facebook-marketplace
 Sort facebook marketplace by date
 
+### fakespot
+Add fakespot link above buy box on amazon
+
 ### outline.js
 Open some outgoing links (mostly news) from HN and Reddit using the awesome [outline.com](https://outline.com) service.
 
