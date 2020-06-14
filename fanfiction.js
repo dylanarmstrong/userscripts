@@ -219,7 +219,7 @@
         span.addEventListener('click', sortByFavorites);
         span.classList.add('gray');
         const div = el.querySelector('div');
-        if (div) {
+        if (div && div.textContent.startsWith('Sort: Category')) {
           div.appendChild(span);
           // Favorite Stories tab has incorrect number of spaces
           span.previousSibling.textContent = ' . ';
