@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         fanfiction
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      1
+// @version      2
 // @description  Additional FF metrics
 // @author       meinhimmel
 // @match        https://*.fanfiction.net/*
@@ -16,6 +16,7 @@
 
 (function() {
   'use strict';
+
   const get_detail = (find, text) => {
     let detail = null;
     const { length } = find;
@@ -229,6 +230,49 @@
     ['fs','st','fa','cc']
       .map(id => document.getElementById(id))
       .forEach(createSpan);
+
+    const fandoms = Array.from(document.querySelectorAll('[data-category]'))
+      .map(el => el.getAttribute('data-category'))
+      .filter(Boolean)
+      .sort();
+
+    if (fandoms.length > 0) {
+      const el = document.querySelector('.tab-content');
+      if (el) {
+        const it = (new Set(fandoms)).values();
+
+        const select = document.createElement('select');
+        let option = document.createElement('option');
+        option.value = '';
+        option.textContent = '';
+        select.appendChild(option);
+
+        let done = false;
+        let value;
+        while (!done) {
+          ({ done, value } = it.next());
+          if (value) {
+            option = document.createElement('option');
+            option.value = value;
+            option.textContent = value;
+            select.appendChild(option);
+          }
+        }
+        const filterFiction = ({ target }) => {
+          const { value } = target;
+          const toggleElement = element => {
+            if (element.getAttribute('data-category') === value) {
+              element.style.display = 'block';
+            } else {
+              element.style.display = 'none';
+            }
+          };
+          Array.from(document.querySelectorAll('[data-category]')).forEach(toggleElement);
+        };
+        select.addEventListener('change', filterFiction);
+        el.insertAdjacentElement('afterbegin', select);
+      }
+    }
   }
 })();
 
