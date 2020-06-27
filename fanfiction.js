@@ -16,6 +16,8 @@
 
 (function() {
   'use strict';
+  // Bugs with this
+  const enable_cors = false;
 
   const parse_normal = () => {
     const details = document.querySelectorAll('.z-padtop2.xgray');
@@ -271,7 +273,7 @@
     return detail || '';
   };
 
-  if (is_profile_page) {
+  if (is_profile_page && enable_cors) {
     // 1. Format stories like normally done
     // 2. Call cors url for 1st page on favorites
     // 3. Get number of pages from response
