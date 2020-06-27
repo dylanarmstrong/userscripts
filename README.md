@@ -9,6 +9,10 @@ Sort facebook marketplace by date
 ### fakespot
 Add fakespot link above buy box on amazon
 
+### fanfiction
+Modify fanfiction.net to be better. There's a customizable cors proxy url that can be used on the profile page.
+If you change this to your own, you can view mobile favorites (without 500 limit) on the desktop.
+
 ### outline.js
 Open some outgoing links (mostly news) from HN and Reddit using the awesome [outline.com](https://outline.com) service.
 
