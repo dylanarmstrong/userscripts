@@ -74,27 +74,11 @@
 
       element.parentNode.parentNode.setAttribute('data-favorites', favs);
 
-      const dates = element.innerHTML.match(/data-xutime=['"].*?['"]/g);
-      let days_since = ''
-        , published = ''
-        , updated = '';
-      if (dates) {
-        for (let date of dates) {
-          date = date.replace(/.*=['"](.*?)['"]/, '$1');
-          const d = Number(date) * 1000;
-          date = new Date(d);
-          // Never updated
-          if (dates.length === 1) {
-            days_since = ((Date.now() - date) / 1000 / 60 / 60 / 24).toFixed(2);
-            published = date.toLocaleDateString();
-          } else if (updated === '') {
-            updated = date.toLocaleDateString();
-          } else {
-            days_since = ((Date.now() - date) / 1000 / 60 / 60 / 24).toFixed(2);
-            published = date.toLocaleDateString();
-          }
-        };
-      }
+      const parent = element.parentNode.parentNode;
+      const updated = (new Date(Number.parseInt(parent.getAttribute('data-dateupdate')) * 1000))
+        .toLocaleDateString();
+      const published = (new Date(Number.parseInt(parent.getAttribute('data-datesubmit')) * 1000))
+        .toLocaleDateString();
 
       let wc_ratio = (words / chapters).toFixed(0);
       if (wc_ratio > 5000) {
@@ -368,8 +352,8 @@
       return {
         element,
         'data-category': fandom,
-        'data-dateupdate': published.getTime(),
-        'data-datesubmit': updated.getTime(),
+        'data-dateupdate': published.getTime() / 1000,
+        'data-datesubmit': updated.getTime() / 1000,
         'data-title': '',
         'data-storyid': '',
         'data-wordcount': words,
