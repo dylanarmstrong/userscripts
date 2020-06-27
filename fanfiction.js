@@ -17,6 +17,9 @@
 (function() {
   'use strict';
 
+  // TODO: add button on favorite page to get mobile
+  // TODO: unselect filter in select doesnt work
+
   const is_profile_page = location.pathname.startsWith('/u/');
   // If this is changed to false, it won't try and convert mobile pages with cors
   let enable_cors = true;
@@ -85,13 +88,32 @@
       const reviews = get_detail('Reviews:', nocommas);
       let words = get_detail('Words:', nocommas);
 
-      element.parentNode.parentNode.setAttribute('data-favorites', favs);
-
       const parent = element.parentNode.parentNode;
-      const updated = (new Date(Number.parseInt(parent.getAttribute('data-dateupdate')) * 1000))
+      parent.setAttribute('data-favorites', favs);
+
+      let updated = (new Date(Number.parseInt(parent.getAttribute('data-dateupdate')) * 1000))
         .toLocaleDateString();
-      const published = (new Date(Number.parseInt(parent.getAttribute('data-datesubmit')) * 1000))
+      let published = (new Date(Number.parseInt(parent.getAttribute('data-datesubmit')) * 1000))
         .toLocaleDateString();
+
+      if (String(published) === 'Invalid Date') {
+        const dates = element.innerHTML.match(/data-xutime=['"].*?['"]/g);
+        if (dates) {
+          for (let date of dates) {
+            date = date.replace(/.*=['"](.*?)['"]/, '$1');
+            const d = Number(date) * 1000;
+            date = new Date(d);
+            // Never updated
+            if (dates.length === 1) {
+              published = date.toLocaleDateString();
+            } else if (updated === '' || String(updated) === 'Invalid Date') {
+              updated = date.toLocaleDateString();
+            } else {
+              published = date.toLocaleDateString();
+            }
+          };
+        }
+      }
 
       let wc_ratio = (words / chapters).toFixed(0);
       if (wc_ratio > 5000) {
@@ -162,10 +184,10 @@
       }
       element.innerHTML += ` - Chapters: ${chapters} - Words: ${words}`;
       element.innerHTML += ` - Reviews: ${reviews} - Favs: ${favs} - Follows: ${follows}`;
-      if (updated !== '') {
+      if (updated !== '' && String(updated) !== 'Invalid Date') {
         element.innerHTML += ` - Updated: ${updated}`;
       }
-      if (published !== '') {
+      if (published !== '' && String(published) !== 'Invalid Date') {
         element.innerHTML += ` - Published: ${published}`;
       }
       element.innerHTML += ` - W/C: ${wc_ratio}`;
@@ -199,7 +221,9 @@
         inside.innerHTML = '';
         stories.forEach(story => inside.appendChild(story));
       };
+      let created = false;
       const createSpan = (el) => {
+        created = true;
         if (el) {
           const span = document.createElement('span');
           span.textContent = 'Favorites';
@@ -213,9 +237,12 @@
           }
         }
       };
-      ['fs','st','fa','cc']
-        .map(id => document.getElementById(id))
-        .forEach(createSpan);
+
+      if (!created) {
+        ['fs','st','fa','cc']
+          .map(id => document.getElementById(id))
+          .forEach(createSpan);
+      }
 
       const fandoms = Array.from(document.querySelectorAll('[data-category]'))
         .map(el => el.getAttribute('data-category'))
@@ -227,7 +254,15 @@
         if (el) {
           const it = (new Set(fandoms)).values();
 
-          const select = document.createElement('select');
+          let select = document.getElementById('custom-fandom-select');
+          let add_select = false;
+          if (select) {
+            select.options.length = 0;
+          } else {
+            add_select = true;
+            select = document.createElement('select');
+          }
+          select.id = 'custom-fandom-select';
           let option = document.createElement('option');
           option.value = '';
           option.textContent = '';
@@ -247,7 +282,7 @@
           const filterFiction = ({ target }) => {
             const { value } = target;
             const toggleElement = element => {
-              if (element.getAttribute('data-category') === value) {
+              if (value === '' || element.getAttribute('data-category') === value) {
                 element.style.display = 'block';
               } else {
                 element.style.display = 'none';
@@ -255,8 +290,10 @@
             };
             Array.from(document.querySelectorAll('[data-category]')).forEach(toggleElement);
           };
-          select.addEventListener('change', filterFiction);
-          el.insertAdjacentElement('afterbegin', select);
+          if (add_select) {
+            select.addEventListener('change', filterFiction);
+            el.insertAdjacentElement('afterbegin', select);
+          }
         }
       }
     }
@@ -283,266 +320,277 @@
   };
 
   if (is_profile_page && enable_cors) {
-    // 1. Call cors url for 1st page on favorites
-    // 2. Get number of pages from response
-    // 3. Call rest of pages
-    // 4. Remove favorite stories from DOM
-    // 5. Parse
-    // 6. Sort
-    // 7. Format stories like normally done
+    const load_mobile = () => {
+      // 1. Call cors url for 1st page on favorites
+      // 2. Get number of pages from response
+      // 3. Call rest of pages
+      // 4. Remove favorite stories from DOM
+      // 5. Parse
+      // 6. Sort
+      // 7. Format stories like normally done
 
-    // Mobile URL
-    const mobile = location.href.replace(/www\./, 'm.');
-    // Replace stories with m.
-    const cors = `https://dylan.is/proxy?url=${mobile}?a=fs`;
-    const contents = [];
+      // Mobile URL
+      const mobile = location.href.replace(/www\./, 'm.');
+      // Replace stories with m.
+      const cors = `https://dylan.is/proxy?url=${mobile}?a=fs`;
+      const contents = [];
 
-    const parse_mobile_details = (div, reviews, complete) => {
-      const get_date = span => {
-        return (new Date(span.getAttribute('data-xutime') * 1000));
-      };
-      const spans = Array.from(div.querySelectorAll('span[data-xutime]'));
-      const published = get_date(spans.pop());
-      let updated;
-      if (spans.length === 1) {
-        // Has been updated
-        updated = get_date(spans.pop())
-      } else {
-        updated = published;
-      }
-      const trim = s => s.trim();
-      const split = div.textContent.split(',').map(trim);
-      const fandom = split.shift();
-      const rating = split.shift();
-      const language = split.shift();
-      const genre = split.shift();
-      const maybe_chapters = split.shift();
-      let chapters = get_detail('chapters:', maybe_chapters);
-      let words;
-      if (chapters) {
-        words = get_detail('words:', split.shift());
-      } else {
-        chapters = 1;
-        words = get_detail('words:', maybe_chapters);
-      }
-      const favs = get_detail('favs:', split.shift());
-      const follows = get_detail('follows:', split.shift());
-      const element = document.createElement('div');
-      // TODO: This can be changed into a method, it's duplicated with above
-      element.append(fandom);
-      element.append(' - ');
-      element.append('Rated: ');
-      element.append(rating.toUpperCase());
-      element.append(' - ');
-      element.append(language);
-      element.append(' - ');
-      element.append(genre);
-      element.append(' - ');
-      element.append('Chapters: ');
-      element.append(chapters);
-      element.append(' - ');
-      element.append('Words: ');
-      element.append(words.replace('k+', '000'));
-      element.append(' - ');
-      element.append('Reviews: ');
-      element.append(reviews.replace('k+', '000'));
-      element.append(' - ');
-      element.append('Favs: ');
-      element.append(favs.replace('k+', '000'));
-      element.append(' - ');
-      element.append('Follows: ');
-      element.append(follows.replace('k+', '000'));
-      if (updated !== published) {
-        element.append(' - ');
-        element.append('Updated: ');
-        element.append(updated.toLocaleDateString());
-      }
-      element.append(' - ');
-      element.append('Published: ');
-      element.append(published.toLocaleDateString());
-      if (!!complete) {
-        element.append(' - ');
-        element.append('Complete');
-      }
-
-      return {
-        element,
-        'data-category': fandom,
-        'data-dateupdate': published.getTime() / 1000,
-        'data-datesubmit': updated.getTime() / 1000,
-        'data-title': '',
-        'data-storyid': '',
-        'data-wordcount': words,
-        'data-favorites': favs,
-        'data-chapters': chapters,
-      };
-    };
-
-    const parse_mobile = (content) => {
-      let complete = false;
-      const filter_node = node => {
-        const { nodeName, nodeValue } = node;
-        if (nodeName === '#text' && (nodeValue === '  by ' || nodeValue === ' ')) {
-          return false;
+      const parse_mobile_details = (div, reviews, complete) => {
+        const get_date = span => {
+          return (new Date(span.getAttribute('data-xutime') * 1000));
+        };
+        const spans = Array.from(div.querySelectorAll('span[data-xutime]'));
+        const published = get_date(spans.pop());
+        let updated;
+        if (spans.length === 1) {
+          // Has been updated
+          updated = get_date(spans.pop())
+        } else {
+          updated = published;
         }
-        if (nodeName === 'IMG') {
-          if (node.classList.contains('pull-right')) {
-            // Mobile has a complete image
-            complete = true;
-          }
-          return false;
+        const trim = s => s.trim();
+        const split = div.textContent.split(',').map(trim);
+        const fandom = split.shift();
+        const rating = split.shift();
+        const language = split.shift();
+        const genre = split.shift();
+        const maybe_chapters = split.shift();
+        let chapters = get_detail('chapters:', maybe_chapters);
+        let words;
+        if (chapters) {
+          words = get_detail('words:', split.shift());
+        } else {
+          chapters = 1;
+          words = get_detail('words:', maybe_chapters);
         }
-        if (nodeName === 'A') {
-          // code point of >> is 187
-          if (node.textContent.length > 0 && node.textContent.codePointAt(0) === 187) {
+        const favs = get_detail('favs:', split.shift());
+        const follows = get_detail('follows:', split.shift());
+        const element = document.createElement('div');
+        // TODO: This can be changed into a method, it's duplicated with above
+        element.append(fandom);
+        element.append(' - ');
+        element.append('Rated: ');
+        element.append(rating.toUpperCase());
+        element.append(' - ');
+        element.append(language);
+        element.append(' - ');
+        element.append(genre);
+        element.append(' - ');
+        element.append('Chapters: ');
+        element.append(chapters);
+        element.append(' - ');
+        element.append('Words: ');
+        element.append(words.replace('k+', '000'));
+        element.append(' - ');
+        element.append('Reviews: ');
+        element.append(reviews.replace('k+', '000'));
+        element.append(' - ');
+        element.append('Favs: ');
+        element.append(favs.replace('k+', '000'));
+        element.append(' - ');
+        element.append('Follows: ');
+        element.append(follows.replace('k+', '000'));
+        if (updated !== published) {
+          element.append(' - ');
+          element.append('Updated: ');
+          element.append(updated.toLocaleDateString());
+        }
+        element.append(' - ');
+        element.append('Published: ');
+        element.append(published.toLocaleDateString());
+        if (!!complete) {
+          element.append(' - ');
+          element.append('Complete');
+        }
+
+        return {
+          element,
+          'data-category': fandom,
+          'data-dateupdate': published.getTime() / 1000,
+          'data-datesubmit': updated.getTime() / 1000,
+          'data-title': '',
+          'data-storyid': '',
+          'data-wordcount': words,
+          'data-favorites': favs,
+          'data-chapters': chapters,
+        };
+      };
+
+      const parse_mobile = (content) => {
+        let complete = false;
+        const filter_node = node => {
+          const { nodeName, nodeValue } = node;
+          if (nodeName === '#text' && (nodeValue === '  by ' || nodeValue === ' ')) {
             return false;
           }
-        }
-        return true;
-      };
-
-      const promise = resolve => {
-        const stories = Array.from(content.querySelectorAll('div.bs.brb'));
-        const frag = document.createDocumentFragment();
-
-        const parse = story => {
-          try {
-            const nodes = Array.from(story.childNodes).filter(filter_node);
-            if (nodes.length === 5) {
-              const reviews = nodes[0].textContent.trim();
-              const { href: storyUrl, textContent: title } = nodes[1];
-              const { href: authorUrl, textContent: author } = nodes[2];
-              const summary = nodes[3].textContent.trim();
-              const details = nodes[4];
-
-              const parent = document.createElement('div');
-              parent.classList.add('z-list');
-              parent.classList.add('favstories');
-              parent.style.minHeight = '77px';
-              parent.style.borderBottom = '1px #cdcdcd solid';
-
-              let a = document.createElement('a');
-              a.classList.add('stitle');
-              a.href = storyUrl;
-              a.textContent = title;
-              parent.appendChild(a);
-
-              a = document.createElement('a');
-              a.href = storyUrl;
-              const span = document.createElement('span');
-              span.classList.add('icon-chevron-right');
-              span.classList.add('xicon-section-arrow');
-              a.appendChild(span);
-              parent.appendChild(a);
-
-              parent.append(' by ');
-
-              a = document.createElement('a');
-              a.href = authorUrl;
-              a.textContent = author;
-              parent.appendChild(a);
-
-              const div = document.createElement('div');
-              div.classList.add('z-padtop');
-              div.textContent = summary;
-
-              const detailDiv = document.createElement('div');
-              detailDiv.innerHTML = details.innerHTML;
-
-              // Parse details
-              const { element, ...attributes } = parse_mobile_details(detailDiv, reviews, complete);
-              const add_attr = key => {
-                parent.setAttribute(key, attributes[key]);
-              };
-              element.classList.add('z-padtop2');
-              element.classList.add('xgray');
-              div.appendChild(element);
-
-              parent.appendChild(div);
-              Object.keys(attributes).forEach(add_attr);
-              frag.appendChild(parent);
+          if (nodeName === 'IMG') {
+            if (node.classList.contains('pull-right')) {
+              // Mobile has a complete image
+              complete = true;
             }
-          } catch (e) { /* Ignore */ }
+            return false;
+          }
+          if (nodeName === 'A') {
+            // code point of >> is 187
+            if (node.textContent.length > 0 && node.textContent.codePointAt(0) === 187) {
+              return false;
+            }
+          }
+          return true;
         };
 
-        stories.forEach(parse);
-        resolve(frag);
+        const promise = resolve => {
+          const stories = Array.from(content.querySelectorAll('div.bs.brb'));
+          const frag = document.createDocumentFragment();
+
+          const parse = story => {
+            try {
+              const nodes = Array.from(story.childNodes).filter(filter_node);
+              if (nodes.length === 5) {
+                const reviews = nodes[0].textContent.trim();
+                const { href: storyUrl, textContent: title } = nodes[1];
+                const { href: authorUrl, textContent: author } = nodes[2];
+                const summary = nodes[3].textContent.trim();
+                const details = nodes[4];
+
+                const parent = document.createElement('div');
+                parent.classList.add('z-list');
+                parent.classList.add('favstories');
+                parent.style.minHeight = '77px';
+                parent.style.borderBottom = '1px #cdcdcd solid';
+
+                let a = document.createElement('a');
+                a.classList.add('stitle');
+                a.href = storyUrl;
+                a.textContent = title;
+                parent.appendChild(a);
+
+                a = document.createElement('a');
+                a.href = storyUrl;
+                const span = document.createElement('span');
+                span.classList.add('icon-chevron-right');
+                span.classList.add('xicon-section-arrow');
+                a.appendChild(span);
+                parent.appendChild(a);
+
+                parent.append(' by ');
+
+                a = document.createElement('a');
+                a.href = authorUrl;
+                a.textContent = author;
+                parent.appendChild(a);
+
+                const div = document.createElement('div');
+                div.classList.add('z-padtop');
+                div.textContent = summary;
+
+                const detailDiv = document.createElement('div');
+                detailDiv.innerHTML = details.innerHTML;
+
+                // Parse details
+                const { element, ...attributes } = parse_mobile_details(detailDiv, reviews, complete);
+                const add_attr = key => {
+                  parent.setAttribute(key, attributes[key]);
+                };
+                element.classList.add('z-padtop2');
+                element.classList.add('xgray');
+                div.appendChild(element);
+
+                parent.appendChild(div);
+                Object.keys(attributes).forEach(add_attr);
+                frag.appendChild(parent);
+              }
+            } catch (e) { /* Ignore */ }
+          };
+
+          stories.forEach(parse);
+          resolve(frag);
+        };
+        return new Promise(promise);
       };
-      return new Promise(promise);
-    };
 
-    const parse_mobiles = () => {
-      const ps = [];
-      for (let i = 0, len = contents.length; i < len; i++) {
-        ps.push(parse_mobile(contents[i]));
-      }
-      return Promise.all(ps);
-    };
-
-    const sort_mobile = (frag) => {
-      const children = Array.from(frag.childNodes);
-      return frag;
-    };
-
-    const place = (frag) => {
-      const inside = document.getElementById('fs_inside');
-      inside.innerHTML = '';
-      inside.appendChild(frag);
-    };
-
-    const frag_combine = (frags) => {
-      const frag = document.createDocumentFragment();
-      const each = dom => frag.appendChild(dom);
-      frags.forEach(each);
-      return frag;
-    };
-
-    const update_badge = () => {
-      document.querySelector('#l_fs > span').textContent = document.querySelectorAll('.favstories').length;
-    };
-
-    // Try and fetch cors proxy
-    fetch(cors)
-      .then(r => r.json())
-      .then(body => {
-        const get_favorite_count = () => {
-          return get_html(body)
-            .querySelector('#content .bs.brb + [align] > span.gray')
-            .textContent
-            .replace(/,/g, '');
-        };
-        // Now we need to get number of pages (20 per page)
-        const pages = Math.ceil(get_favorite_count() / 20);
+      const parse_mobiles = () => {
         const ps = [];
-        const get_content = (json) => {
-          const content = get_html(json).querySelector('#content');
-          contents.push(content);
-          return;
-        };
-        get_content(body);
-        for (let i = 2, len = pages + 1; i < len; i++) {
-          ps.push(
-            // Encode the &
-            fetch(`${cors}%26p=${i}`)
-              .then(r => r.json())
-              .then(get_content)
-              .catch(e => undefined)
-          );
+        for (let i = 0, len = contents.length; i < len; i++) {
+          ps.push(parse_mobile(contents[i]));
         }
         return Promise.all(ps);
-      })
-      // Parse mobile stories, and format like desktop
-      .then(parse_mobiles)
-      // Combine all the frags into single
-      .then(frag_combine)
-      // Setup sort, need to resort stories
-      .then(sort_mobile)
-      // Place on page
-      .then(place)
-      .then(update_badge)
-      .catch(e => undefined)
-      .then(parse_normal);
-  } else {
-    parse_normal();
+      };
+
+      // TODO: Placeholder
+      const sort_mobile = (frag) => {
+        const children = Array.from(frag.childNodes);
+        return frag;
+      };
+
+      const place = (frag) => {
+        const inside = document.getElementById('fs_inside');
+        inside.innerHTML = '';
+        inside.appendChild(frag);
+      };
+
+      const frag_combine = (frags) => {
+        const frag = document.createDocumentFragment();
+        const each = dom => frag.appendChild(dom);
+        frags.forEach(each);
+        return frag;
+      };
+
+      const update_badge = () => {
+        document.querySelector('#l_fs > span').textContent = document.querySelectorAll('.favstories').length;
+      };
+
+      // Try and fetch cors proxy
+      fetch(cors)
+        .then(r => r.json())
+        .then(body => {
+          const get_favorite_count = () => {
+            return get_html(body)
+              .querySelector('#content .bs.brb + [align] > span.gray')
+              .textContent
+              .replace(/,/g, '');
+          };
+          // Now we need to get number of pages (20 per page)
+          const pages = Math.ceil(get_favorite_count() / 20);
+          const ps = [];
+          const get_content = (json) => {
+            const content = get_html(json).querySelector('#content');
+            contents.push(content);
+            return;
+          };
+          get_content(body);
+          for (let i = 2, len = pages + 1; i < len; i++) {
+            ps.push(
+              // Encode the &
+              fetch(`${cors}%26p=${i}`)
+                .then(r => r.json())
+                .then(get_content)
+                .catch(e => undefined)
+            );
+          }
+          return Promise.all(ps);
+        })
+        // Parse mobile stories, and format like desktop
+        .then(parse_mobiles)
+        // Combine all the frags into single
+        .then(frag_combine)
+        // Setup sort, need to resort stories
+        .then(sort_mobile)
+        // Place on page
+        .then(place)
+        .then(update_badge)
+        .catch(e => undefined)
+        .then(parse_normal);
+    };
+
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    li.addEventListener('click', load_mobile);
+    a.textContent = 'Load Mobile Favorites';
+    a.style.cursor = 'pointer';
+    li.appendChild(a);
+    document.getElementById('mytab').appendChild(li);
   }
+
+  parse_normal();
 })();
