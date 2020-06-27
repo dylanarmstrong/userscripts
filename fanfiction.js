@@ -16,8 +16,19 @@
 
 (function() {
   'use strict';
-  // Bugs with this
-  const enable_cors = false;
+
+  const is_profile_page = location.pathname.startsWith('/u/');
+  // If this is changed to false, it won't try and convert mobile pages with cors
+  let enable_cors = true;
+  // Only run on pages with 500 favorites (due to 500 bug)
+  let badge_count = 0;
+  try {
+    badge_count = Number.parseInt(document.querySelector('#l_fs > span').textContent);
+  } catch (e) { /* Ignore */ }
+
+  if (enable_cors && (!is_profile_page || badge_count !== 500)) {
+    enable_cors = false;
+  }
 
   const parse_normal = () => {
     const details = document.querySelectorAll('.z-padtop2.xgray');
@@ -257,8 +268,6 @@
     return div;
   };
 
-  const is_profile_page = location.pathname.startsWith('/u/');
-
   const get_detail = (find, text) => {
     let detail = null;
     const { length } = find;
@@ -274,13 +283,13 @@
   };
 
   if (is_profile_page && enable_cors) {
-    // 1. Format stories like normally done
-    // 2. Call cors url for 1st page on favorites
-    // 3. Get number of pages from response
-    // 4. Call rest of pages
-    // 5. Remove favorite stories from DOM
-    // 6. Parse
-    // 7. Sort
+    // 1. Call cors url for 1st page on favorites
+    // 2. Get number of pages from response
+    // 3. Call rest of pages
+    // 4. Remove favorite stories from DOM
+    // 5. Parse
+    // 6. Sort
+    // 7. Format stories like normally done
 
     // Mobile URL
     const mobile = location.href.replace(/www\./, 'm.');
@@ -288,7 +297,7 @@
     const cors = `https://dylan.is/proxy?url=${mobile}?a=fs`;
     const contents = [];
 
-    const parse_mobile_details = (div, reviews) => {
+    const parse_mobile_details = (div, reviews, complete) => {
       const get_date = span => {
         return (new Date(span.getAttribute('data-xutime') * 1000));
       };
@@ -319,6 +328,7 @@
       const favs = get_detail('favs:', split.shift());
       const follows = get_detail('follows:', split.shift());
       const element = document.createElement('div');
+      // TODO: This can be changed into a method, it's duplicated with above
       element.append(fandom);
       element.append(' - ');
       element.append('Rated: ');
@@ -350,6 +360,10 @@
       element.append(' - ');
       element.append('Published: ');
       element.append(published.toLocaleDateString());
+      if (!!complete) {
+        element.append(' - ');
+        element.append('Complete');
+      }
 
       return {
         element,
@@ -365,12 +379,17 @@
     };
 
     const parse_mobile = (content) => {
+      let complete = false;
       const filter_node = node => {
         const { nodeName, nodeValue } = node;
         if (nodeName === '#text' && (nodeValue === '  by ' || nodeValue === ' ')) {
           return false;
         }
         if (nodeName === 'IMG') {
+          if (node.classList.contains('pull-right')) {
+            // Mobile has a complete image
+            complete = true;
+          }
           return false;
         }
         if (nodeName === 'A') {
@@ -416,6 +435,8 @@
               a.appendChild(span);
               parent.appendChild(a);
 
+              parent.append(' by ');
+
               a = document.createElement('a');
               a.href = authorUrl;
               a.textContent = author;
@@ -429,7 +450,7 @@
               detailDiv.innerHTML = details.innerHTML;
 
               // Parse details
-              const { element, ...attributes } = parse_mobile_details(detailDiv, reviews);
+              const { element, ...attributes } = parse_mobile_details(detailDiv, reviews, complete);
               const add_attr = key => {
                 parent.setAttribute(key, attributes[key]);
               };
@@ -441,8 +462,7 @@
               Object.keys(attributes).forEach(add_attr);
               frag.appendChild(parent);
             }
-          } catch (e) {
-          }
+          } catch (e) { /* Ignore */ }
         };
 
         stories.forEach(parse);
