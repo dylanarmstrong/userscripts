@@ -29,12 +29,12 @@
     const el = els[i];
     const rate = document.createElement('span');
     let num;
-    if (el.hasAttribute('title')) {
-      num = Number(el.getAttribute('title'));
-    } else if (el.hasAttribute('aria-label')) {
-      num = Number(el.getAttribute('aria-label').replace(/[^\.0-9]*/g, ''));
+    if (el.hasAttribute('aria-label')) {
+      num = Number.parseFloat(el.getAttribute('aria-label').replace(/[^\.0-9]*/g, ''));
+    } else if (el.hasAttribute('title')) {
+      num = Number.parseFloat(el.getAttribute('title'));
     }
-    if (typeof num !== 'undefined') {
+    if (num) {
       let color;
       if (num > 4.5) {
         color = colors.good;
