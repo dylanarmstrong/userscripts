@@ -17,9 +17,6 @@
 (function() {
   'use strict';
 
-  // TODO: add button on favorite page to get mobile
-  // TODO: unselect filter in select doesnt work
-
   const is_profile_page = location.pathname.startsWith('/u/');
   // If this is changed to false, it won't try and convert mobile pages with cors
   let enable_cors = true;
