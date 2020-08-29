@@ -17,6 +17,8 @@
 (function() {
   'use strict';
 
+  //TODO: start mobile load at the 500+ mark, so first 500 stories don't change
+
   const is_profile_page = location.pathname.startsWith('/u/');
   // If this is changed to false, it won't try and convert mobile pages with cors
   let enable_cors = true;

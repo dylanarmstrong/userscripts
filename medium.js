@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         medium
 // @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      7
+// @version      8
 // @description  Uncrap medium
 // @author       meinhimmel
 // @match        *://*/*
@@ -25,14 +25,10 @@
     const test = (method) => {
       try {
         method();
-      } catch (e) { /* Ignore */ }
+      } catch (e) { console.error(e); }
     };
 
     const css = `
-      * {
-        cursor: default !important;
-      }
-
       a,
       a h3,
       button,
@@ -50,10 +46,17 @@
       }
     `;
 
-    GM_addStyle(css);
+    if (typeof GM_addStyle === 'function') {
+      GM_addStyle(css);
+    } else {
+      // Support Userscripts
+      const style = document.createElement('style');
+      style.textContent = css;
+      document.head.appendChild(style);
+    }
 
     // Delete the cookies
-    const expire = new Date().toUTCString();
+    const expire = new Date('2000-01-01').toUTCString();
     test(() => {
       document.cookie.split(';')
         .forEach(c => (
@@ -61,8 +64,12 @@
         ));
     });
 
+    // Shadow the HttpOnly uid cookie
+    test(() => document.cookie = `uid=${Math.round(Math.random() * 100)};`);
+
     // May not have localStorage
     test(() => localStorage.clear());
+    test(() => sessionStorage.clear());
 
     // Only do these once, as otherwise mutations will grab content
     // Remove large blank space after header
@@ -79,37 +86,68 @@
         document.querySelector('iframe[src^="https://smartlock"]').remove()
       );
 
+      // Don't care how many free stories I have left
+      test(() => {
+        const el = document.querySelector('section');
+        if (el.textContent.match(/You have [0-9]*? free stor.*? left this month/)) {
+          el.remove()
+        }
+      });
+
+      test(() => {
+        const el = document.querySelector('section');
+        if (el.textContent.match(/This is your last free story this month/)) {
+          el.remove()
+        }
+      });
+
+      // Remove asides for top highlight
+      test(() =>
+        Array.prototype.forEach.call(document.querySelectorAll('aside'), ass => ass.remove())
+      );
+
       // Remove flickering sidebar
       test(() => (document.querySelector('[data-test-id="post-sidebar"]').style.display = 'none'));
 
       // Remove pardon the interruption bar
-      let p;
+      let line;
       document.querySelectorAll('p')
-        .forEach(el => el.textContent.includes('To make Medium work, we log user data.') && (p = el));
+        .forEach(el => el.textContent.includes('To make Medium work, we log user data.') && (line = el));
 
-      if (typeof p !== 'undefined') {
+      if (line) {
         test(() => {
-          const overlay = p.parentNode.parentNode.parentNode.parentNode.parentNode;
+          const overlay = line.parentNode.parentNode.parentNode.parentNode.parentNode;
           overlay.parentNode.removeChild(overlay);
         });
       }
 
-      let h3;
+      // I don't agree to your terms of service
+      document.querySelectorAll('h4')
+        .forEach(el => el.textContent.includes('We’ve made changes to our') && (line = el));
+
+      if (line) {
+        test(() => {
+          const overlay = line.parentNode.parentNode.parentNode.parentNode.parentNode;
+          overlay.parentNode.removeChild(overlay);
+        });
+      }
+
+      // No thanks
       document.querySelectorAll('h3')
-        .forEach(el => el.textContent.includes('Pardon the interruption') && (h3 = el));
+        .forEach(el => el.textContent.includes('Pardon the interruption') && (line = el));
 
-      if (typeof h3 !== 'undefined') {
+      if (line) {
         test(() => {
-          const overlay = h3.parentNode.parentNode.parentNode.parentNode.parentNode;
+          const overlay = line.parentNode.parentNode.parentNode.parentNode.parentNode;
           overlay.parentNode.removeChild(overlay);
         });
       }
 
-      let h2;
+      // I don't want to be a member
       document.querySelectorAll('h2')
-        .forEach(el => el.textContent.includes('Get one more story in your member preview') && (h2 = el));
+        .forEach(el => el.textContent.includes('Get one more story in your member preview') && (line = el));
 
-      if (typeof h2 !== 'undefined') {
+      if (line) {
         test(() => {
           const overlay = h2.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
           overlay.parentNode.removeChild(overlay);
@@ -117,24 +155,43 @@
       }
 
       // Lazy image loading
-      document.querySelectorAll('noscript').forEach(hidden => {
+      const unhide = hidden => {
         test(() => {
-          const prev = hidden.previousElementSibling;
-          if (prev.tagName === 'IMG') {
-            prev.style.transitionDuration = '0ms';
-            prev.style.opacity = '1';
+          let prev = hidden.previousElementSibling;
+          if (prev.tagName === 'IMG' || prev.tagName === 'DIV') {
+            prev.parentNode.removeChild(prev);
+          }
+
+          prev = hidden.previousElementSibling.previousElementSibling;
+          if (prev.tagName === 'DIV') {
+            prev.parentNode.removeChild(prev);
           }
         });
-        const img = document.createElement('img');
-        const src = hidden.textContent.match(/src="(https:\/\/[^"]+)"/);
-        if (src) {
+
+        const text = hidden.textContent;
+        const src = text.match(/src="(https:\/\/[^"]+)"/);
+        if (src && src.length > 1) {
+          const img = document.createElement('img');
+          img.src = src[1];
+          test(() => img.alt = text.match(/alt="([^"]+)"/)[1]);
+          test(() => img.className = text.match(/class="([^"]+)"/)[1]);
+          test(() => img.height = text.match(/height="([^"]+)"/)[1]);
+          test(() => img.width = text.match(/width="([^"]+)"/)[1]);
+
+          const a = document.createElement('a');
+          a.href = src[1];
+          a.rel = 'noopener noreferrer';
+          a.target = '_blank';
+          a.appendChild(img);
+
           test(() => {
-            img.src = src[1];
-            img.className = hidden.textContent.match(/class="([^"]+)"/)[1]
+            const parent = hidden.parentNode;
+            parent.innerHTML = '';
+            parent.appendChild(a);
           });
-          hidden.parentNode.appendChild(img);
         }
-      });
+      };
+      document.querySelectorAll('noscript').forEach(unhide);
 
       // Shitty popup on click / mouseover
       test(() => document.querySelector('[tabindex="-1"]').parentNode.remove());
@@ -160,4 +217,3 @@
     }, 250);
   }
 })();
-
