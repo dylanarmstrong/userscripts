@@ -25,7 +25,7 @@
     const test = (method) => {
       try {
         method();
-      } catch (e) { console.error(e); }
+      } catch (e) { /* Ignore */ }
     };
 
     const css = `
