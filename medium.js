@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         medium
-// @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
+// @namespace    https://github.com/dylanarmstrong/tampermonkey-scripts/
 // @version      8
 // @description  Uncrap medium
-// @author       meinhimmel
+// @author       dylanarmstrong
 // @match        *://*/*
-// @updateURL    https://raw.githubusercontent.com/meinhimmel/tampermonkey-scripts/master/medium.js
-// @supportURL   https://github.com/meinhimmel/tampermonkey-scripts/issues
+// @updateURL    https://raw.githubusercontent.com/dylanarmstrong/tampermonkey-scripts/master/medium.js
+// @supportURL   https://github.com/dylanarmstrong/tampermonkey-scripts/issues
 // @run-at       document-body
 // @grant        GM_addStyle
 // ==/UserScript==
