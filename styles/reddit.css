@@ -1,0 +1,19 @@
+/* ==UserStyle==
+@name        reddit-style
+@description reddit style
+@match       *://*.reddit.com/*
+@match       *://reddit.com/*
+==/UserStyle== */
+
+#chat,
+#chat + .separator,
+.email-collection-banner,
+#redesign-beta-optin-btn,
+.premium-banner-outer,
+.listing-chooser.initialized,
+.entry .buttons .give-gold-button,
+.entry .buttons .share,
+.happening-now-wrap,
+.entry .buttons .crosspost-button {
+  display: none !important;
+}

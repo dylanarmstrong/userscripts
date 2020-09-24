@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         reddit-override
-// @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      2
+// @namespace    https://github.com/dylanarmstrong/tampermonkey-scripts/
+// @version      3
 // @description  Override some window.r functionality on reddit
-// @author       meinhimmel
+// @author       dylanarmstrong
 // @match        https://*.reddit.com/*
-// @updateURL    https://raw.githubusercontent.com/meinhimmel/tampermonkey-scripts/master/reddit-override.js
-// @supportURL   https://github.com/meinhimmel/tampermonkey-scripts/issues
+// @updateURL    https://raw.githubusercontent.com/dylanarmstrong/tampermonkey-scripts/master/reddit-override.js
+// @supportURL   https://github.com/dylanarmstrong/tampermonkey-scripts/issues
 // @grant        none
 // ==/UserScript==
 
@@ -79,6 +79,4 @@
     const override = window.r[overrides[i]];
     Object.keys(override).forEach(each.bind(this, override));
   }
-
 })();
-

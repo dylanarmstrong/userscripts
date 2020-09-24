@@ -1,7 +1,14 @@
-## Tampermonkey Scripts
+## Userscripts and Userstyles
 
 ### Notes
-My personal collection of tampermonkey scripts. These can all be used independently of each other, so just grab the ones that sound interesting. I primarily use Safari, and haven't tested any of these in other browsers. If you run into issues, please open an issue.
+My personal collection of userscripts. These can all be used independently of each other,
+so just grab the ones that sound interesting. I primarily use Safari, and haven't tested
+any of these in other browsers. If you run into issues, please open an issue.
+
+From Sept. 2020 onwards, these are designed and being updated to work with
+[Userscripts](https://github.com/quoid/userscripts) instead of Tampermonkey.
+
+Userstyles are stored in the styles folder
 
 ### facebook-marketplace
 Sort facebook marketplace by date
@@ -12,6 +19,9 @@ Add fakespot link above buy box on amazon
 ### fanfiction
 Modify fanfiction.net to be better. There's a customizable cors proxy url that can be used on the profile page.
 If you change this to your own, you can view mobile favorites (without 500 limit) on the desktop.
+
+### imgur
+Bypass imgur login
 
 ### outline.js
 Open some outgoing links (mostly news) from HN and Reddit using the awesome [outline.com](https://outline.com) service.
@@ -38,6 +48,9 @@ Redirects www calls to old.reddit.com
 
 ### script.js
 __NOT__ a tampermonkey script, this is the script for a Safari addon
+
+### styles
+This is a folder of userstyles
 
 ### stylize.js
 @deprecated
@@ -84,4 +97,3 @@ Remove posts from search results, only show threads
 
 ### youtube.js
 Disable youtube polymer
-

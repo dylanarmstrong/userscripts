@@ -1,0 +1,19 @@
+/* ==UserStyle==
+@name        fanfiction-style
+@description fanfiction/fictionpress style
+@match       *://fanfiction.net/*
+@match       *://fictionpress.com/*
+==/UserStyle== */
+
+@import url('https://fonts.googleapis.com/css?family=Amiri');
+
+#storytext {
+  font-family: 'Amiri';
+  font-size: 18px;
+  margin: 0 auto;
+  width: 75%;
+}
+
+#storytextp {
+  -webkit-user-select: auto !important;
+}

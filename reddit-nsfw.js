@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         reddit-nsfw
-// @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      3
+// @namespace    https://github.com/dylanarmstrong/tampermonkey-scripts/
+// @version      4
 // @description  Filter all NSFW content
-// @author       meinhimmel
+// @author       dylanarmstrong
 // @match        https://*.reddit.com/*
-// @updateURL    https://raw.githubusercontent.com/meinhimmel/tampermonkey-scripts/master/reddit-nsfw.js
-// @supportURL   https://github.com/meinhimmel/tampermonkey-scripts/issues
+// @updateURL    https://raw.githubusercontent.com/dylanarmstrong/tampermonkey-scripts/master/reddit-nsfw.js
+// @supportURL   https://github.com/dylanarmstrong/tampermonkey-scripts/issues
 // @grant        none
 // ==/UserScript==
 
@@ -32,4 +32,3 @@
   // reddit-load.js compatibility
   document.addEventListener('reddit-load', hide);
 })();
-

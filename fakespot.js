@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         fakespot
 // @namespace    https://github.com/dylanarmstrong/tampermonkey-scripts/
-// @version      1
+// @version      2
 // @description  Fakespot links on Amazon
 // @author       dylanarmstrong
 // @match        https://*.amazon.com/*

@@ -1,0 +1,11 @@
+/* ==UserStyle==
+@name        youtube-style
+@description youtube style
+@match       *://youtube.com/*
+==/UserStyle== */
+
+ytd-video-masthead-ad-v3-renderer,
+ytd-horizontal-card-list-renderer,
+ytd-carousel-ad-renderer {
+  display: none !important;
+}

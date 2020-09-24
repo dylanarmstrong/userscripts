@@ -1,0 +1,9 @@
+/* ==UserStyle==
+@name        wormstorysearch-style
+@description wormstorysearch style
+@match       *://wormstorysearch.com/*
+==/UserStyle== */
+
+a:visited {
+  color: purple;
+}

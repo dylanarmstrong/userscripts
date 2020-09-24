@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         royalroad
-// @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      1
+// @namespace    https://github.com/dylanarmstrong/tampermonkey-scripts/
+// @version      2
 // @description  Royalroad stuff
-// @author       meinhimmel
+// @author       dylanarmstrong
 // @match        https://*.royalroad.com/*
-// @updateURL    https://raw.githubusercontent.com/meinhimmel/tampermonkey-scripts/master/royalroad.js
-// @supportURL   https://github.com/meinhimmel/tampermonkey-scripts/issues
+// @updateURL    https://raw.githubusercontent.com/dylanarmstrong/tampermonkey-scripts/master/royalroad.js
+// @supportURL   https://github.com/dylanarmstrong/tampermonkey-scripts/issues
 // @grant        none
 // ==/UserScript==
 

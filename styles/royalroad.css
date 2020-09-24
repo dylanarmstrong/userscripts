@@ -1,0 +1,28 @@
+/* ==UserStyle==
+@name        royalroad-style
+@description royalroad style
+@match       *://royalroad.com/*
+==/UserStyle== */
+
+@import url('https://fonts.googleapis.com/css?family=Amiri');
+
+.wide,
+.fic-header+.portlet,
+.chapter-content+.bold,
+.chapter-content+.bold+.wide+hr,
+.portlet.light.profile-sidebar-portlet.text-center.ac,
+.portlet.text-center.fiction-list-item,
+.portlet.light.text-center,
+#donate+.bold,
+#donate+.bold+.row {
+  display: none;
+}
+
+.chapter-inner.chapter-content span,
+.chapter-inner.chapter-content {
+  font-size: 18px !important;
+  font-family: 'Amiri' !important;
+  letter-spacing: 0;
+  font-weight: 400;
+  text-rendering: optimizeLegibility;
+}

@@ -1,0 +1,54 @@
+/* ==UserStyle==
+@name        xenforo-style
+@description xenforo style
+@match       *://forums.spacebattles.com/*
+@match       *://forums.sufficientvelocity.com/*
+@match       *://forum.questionablequesting.com/*
+==/UserStyle== */
+
+@import url('https://fonts.googleapis.com/css?family=Amiri');
+
+.bbCodePreview-content,
+.bbWrapper,
+.fr-box.fr-basic .fr-element,
+.fr-box.fr-basic textarea.input,
+.messageText,
+.message-body .bbCodeBlock.bbCodeBlock-content,
+.message-body {
+  font-family: 'Amiri', serif !important;
+  font-size: 18px !important;
+  letter-spacing: 0;
+  font-weight: 400;
+  text-rendering: optimizeLegibility;
+}
+
+.messageContent,
+.message-body {
+  margin: auto 10%;
+}
+
+.structItem-title,
+.structItem-title a,
+.structItem-cell {
+  color: #0f0;
+}
+
+a.unreadLink {
+  display: none !important;
+}
+
+.tooltip.tooltip--basic.tooltip--bottom.tooltip--selectToQuote,
+#QuoteSelected,
+.message-cell--user,
+.AdContainer {
+  display: none !important;
+}
+
+html.stickyNav, html.stickyNav body {
+  scroll-padding-top: 0;
+}
+
+.p-navSticky.is-sticky,
+.p-navSticky {
+  position: relative !important;
+}

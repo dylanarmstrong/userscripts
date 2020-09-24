@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         xenforo-reactions
 // @namespace    https://github.com/dylanarmstrong/tampermonkey-scripts/
-// @version      1
+// @version      2
 // @description  Add first message reaction count
 // @author       dylanarmstrong
 // @match        https://www.alternatehistory.com/forum/forums/*

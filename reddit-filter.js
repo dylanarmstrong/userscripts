@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         reddit-filter
-// @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      6
+// @namespace    https://github.com/dylanarmstrong/tampermonkey-scripts/
+// @version      7
 // @description  Filter subreddits on r/all
-// @author       meinhimmel
+// @author       dylanarmstrong
 // @match        https://*.reddit.com/r/all/*
-// @updateURL    https://raw.githubusercontent.com/meinhimmel/tampermonkey-scripts/master/reddit-filter.js
-// @supportURL   https://github.com/meinhimmel/tampermonkey-scripts/issues
+// @updateURL    https://raw.githubusercontent.com/dylanarmstrong/tampermonkey-scripts/master/reddit-filter.js
+// @supportURL   https://github.com/dylanarmstrong/tampermonkey-scripts/issues
 // @grant        none
 // ==/UserScript==
 
@@ -52,7 +52,8 @@
 
   // Store the version # in localStorage
   // this will be useful for possible breaking changes
-  const version = GM_info.script.version;
+  // How many ? can you fit on one line?
+  const version = typeof GM_info === 'object' ? GM_info?.script?.version ?? 0 : 0;
   const keys = {
     domains: 'filter.domains',
     subreddits: 'filter.subreddits',

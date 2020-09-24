@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         reddit-redirect
-// @namespace    https://github.com/meinhimmel/tampermonkey-scripts/
-// @version      4
+// @namespace    https://github.com/dylanarmstrong/tampermonkey-scripts/
+// @version      5
 // @description  Redirect www to old
-// @author       meinhimmel
+// @author       dylanarmstrong
 // @match        https://www.reddit.com/*
-// @updateURL    https://raw.githubusercontent.com/meinhimmel/tampermonkey-scripts/master/reddit-redirect.js
-// @supportURL   https://github.com/meinhimmel/tampermonkey-scripts/issues
+// @updateURL    https://raw.githubusercontent.com/dylanarmstrong/tampermonkey-scripts/master/reddit-redirect.js
+// @supportURL   https://github.com/dylanarmstrong/tampermonkey-scripts/issues
 // @run-at       document-start
 // @grant        none
 // ==/UserScript==
@@ -23,4 +23,3 @@
     document.location.href = `https://old.${href.slice(12)}`;
   }
 })();
-

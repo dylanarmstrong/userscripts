@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         fanfiction
 // @namespace    https://github.com/dylanarmstrong/tampermonkey-scripts/
-// @version      3
+// @version      4
 // @description  Additional FF metrics
 // @author       dylanarmstrong
 // @match        https://*.fanfiction.net/*
