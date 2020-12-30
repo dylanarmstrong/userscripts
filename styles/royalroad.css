@@ -2,6 +2,7 @@
 @name        royalroad-style
 @description royalroad style
 @match       *://royalroad.com/*
+@match       *://*.royalroad.com/*
 ==/UserStyle== */
 
 @import url('https://fonts.googleapis.com/css?family=Amiri');

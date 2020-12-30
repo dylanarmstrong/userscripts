@@ -1,13 +1,13 @@
 // ==UserScript==
-// @name         fanfiction
-// @namespace    https://github.com/dylanarmstrong/tampermonkey-scripts/
-// @version      4
-// @description  Additional FF metrics
 // @author       dylanarmstrong
-// @match        https://*.fanfiction.net/*
-// @updateURL    https://raw.githubusercontent.com/dylanarmstrong/tampermonkey-scripts/master/fanfiction.js
-// @supportURL   https://github.com/dylanarmstrong/tampermonkey-scripts/issues
+// @description  Additional FF metrics
 // @grant        none
+// @match        https://*.fanfiction.net/*
+// @name         fanfiction
+// @namespace    https://github.com/dylanarmstrong/userscripts/
+// @supportURL   https://github.com/dylanarmstrong/userscripts/issues
+// @updateURL    https://raw.githubusercontent.com/dylanarmstrong/userscripts/master/fanfiction.js
+// @version      5
 // ==/UserScript==
 
 /**

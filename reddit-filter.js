@@ -1,13 +1,13 @@
 // ==UserScript==
-// @name         reddit-filter
-// @namespace    https://github.com/dylanarmstrong/tampermonkey-scripts/
-// @version      7
-// @description  Filter subreddits on r/all
 // @author       dylanarmstrong
-// @match        https://*.reddit.com/r/all/*
-// @updateURL    https://raw.githubusercontent.com/dylanarmstrong/tampermonkey-scripts/master/reddit-filter.js
-// @supportURL   https://github.com/dylanarmstrong/tampermonkey-scripts/issues
+// @description  Filter subreddits on r/all
 // @grant        none
+// @match        https://*.reddit.com/r/all/*
+// @name         reddit-filter
+// @namespace    https://github.com/dylanarmstrong/userscripts/
+// @supportURL   https://github.com/dylanarmstrong/userscripts/issues
+// @updateURL    https://raw.githubusercontent.com/dylanarmstrong/userscripts/master/reddit-filter.js
+// @version      8
 // ==/UserScript==
 
 /**

@@ -1,13 +1,13 @@
 // ==UserScript==
-// @name         reddit-nsfw
-// @namespace    https://github.com/dylanarmstrong/tampermonkey-scripts/
-// @version      4
-// @description  Filter all NSFW content
 // @author       dylanarmstrong
-// @match        https://*.reddit.com/*
-// @updateURL    https://raw.githubusercontent.com/dylanarmstrong/tampermonkey-scripts/master/reddit-nsfw.js
-// @supportURL   https://github.com/dylanarmstrong/tampermonkey-scripts/issues
+// @description  Filter all NSFW content
 // @grant        none
+// @match        https://*.reddit.com/*
+// @name         reddit-nsfw
+// @namespace    https://github.com/dylanarmstrong/userscripts/
+// @supportURL   https://github.com/dylanarmstrong/userscripts/issues
+// @updateURL    https://raw.githubusercontent.com/dylanarmstrong/userscripts/master/reddit-nsfw.js
+// @version      5
 // ==/UserScript==
 
 /**

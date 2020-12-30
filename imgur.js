@@ -1,14 +1,14 @@
 // ==UserScript==
-// @name         imgur
-// @namespace    https://github.com/dylanarmstrong/tampermonkey-scripts/
-// @version      1
-// @description  Imgur Login Bypass
 // @author       dylanarmstrong
-// @match        https://imgur.com/*
-// @updateURL    https://raw.githubusercontent.com/dylanarmstrong/tampermonkey-scripts/master/imgur.js
-// @supportURL   https://github.com/dylanarmstrong/tampermonkey-scripts/issues
-// @run-at       document-body
+// @description  Imgur Login Bypass
 // @grant        none
+// @match        https://imgur.com/*
+// @name         imgur
+// @namespace    https://github.com/dylanarmstrong/userscripts/
+// @run-at       document-body
+// @supportURL   https://github.com/dylanarmstrong/userscripts/issues
+// @updateURL    https://raw.githubusercontent.com/dylanarmstrong/userscripts/master/imgur.js
+// @version      2
 // ==/UserScript==
 
 (function() {

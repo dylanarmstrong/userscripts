@@ -1,14 +1,14 @@
 // ==UserScript==
-// @name         reddit-redirect
-// @namespace    https://github.com/dylanarmstrong/tampermonkey-scripts/
-// @version      5
-// @description  Redirect www to old
 // @author       dylanarmstrong
-// @match        https://www.reddit.com/*
-// @updateURL    https://raw.githubusercontent.com/dylanarmstrong/tampermonkey-scripts/master/reddit-redirect.js
-// @supportURL   https://github.com/dylanarmstrong/tampermonkey-scripts/issues
-// @run-at       document-start
+// @description  Redirect www to old
 // @grant        none
+// @match        https://www.reddit.com/*
+// @name         reddit-redirect
+// @namespace    https://github.com/dylanarmstrong/userscripts/
+// @run-at       document-start
+// @supportURL   https://github.com/dylanarmstrong/userscripts/issues
+// @updateURL    https://raw.githubusercontent.com/dylanarmstrong/userscripts/master/reddit-redirect.js
+// @version      6
 // ==/UserScript==
 
 /**

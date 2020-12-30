@@ -38,6 +38,9 @@ Override Reddit's official window.r functionality that *may* be interesting, I d
 #### reddit-redirect
 Redirects www calls to old.reddit.com
 
+#### wikipedia-chess
+Fixes chessboards on Safari wikipedia
+
 #### xenforo-popular
 Hides unpopular stories on spacebattles / sufficientvelocity, so it's easier to go through recently updated and find good stories.
 
@@ -47,6 +50,7 @@ Adds first message reaction score on alternate-history, sufficientvelocity and s
 ### Styles
 * fanfiction
 * reddit
+* hacker-news
 * royalroad
 * wormstorysearch
 * xenforo

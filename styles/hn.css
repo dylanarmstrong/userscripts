@@ -1,0 +1,9 @@
+/* ==UserStyle==
+@name        hn-style
+@description hn-style
+@match       https://news.ycombinator.com/*
+==/UserStyle== */
+
+p {
+  word-break: break-word;
+}

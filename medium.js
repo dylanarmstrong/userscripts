@@ -1,14 +1,14 @@
 // ==UserScript==
-// @name         medium
-// @namespace    https://github.com/dylanarmstrong/tampermonkey-scripts/
-// @version      8
-// @description  Uncrap medium
 // @author       dylanarmstrong
-// @match        *://*/*
-// @updateURL    https://raw.githubusercontent.com/dylanarmstrong/tampermonkey-scripts/master/medium.js
-// @supportURL   https://github.com/dylanarmstrong/tampermonkey-scripts/issues
-// @run-at       document-body
+// @description  Uncrap medium
 // @grant        GM_addStyle
+// @match        *://*/*
+// @name         medium
+// @namespace    https://github.com/dylanarmstrong/userscripts/
+// @run-at       document-body
+// @supportURL   https://github.com/dylanarmstrong/userscripts/issues
+// @updateURL    https://raw.githubusercontent.com/dylanarmstrong/userscripts/master/medium.js
+// @version      9
 // ==/UserScript==
 
 /**

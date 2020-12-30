@@ -1,13 +1,13 @@
 // ==UserScript==
-// @name         fakespot
-// @namespace    https://github.com/dylanarmstrong/tampermonkey-scripts/
-// @version      2
-// @description  Fakespot links on Amazon
 // @author       dylanarmstrong
-// @match        https://*.amazon.com/*
-// @updateURL    https://raw.githubusercontent.com/dylanarmstrong/tampermonkey-scripts/master/fakespot.js
-// @supportURL   https://github.com/dylanarmstrong/tampermonkey-scripts/issues
+// @description  Fakespot links on Amazon
 // @grant        none
+// @match        https://*.amazon.com/*
+// @name         fakespot
+// @namespace    https://github.com/dylanarmstrong/userscripts/
+// @supportURL   https://github.com/dylanarmstrong/userscripts/issues
+// @updateURL    https://raw.githubusercontent.com/dylanarmstrong/userscripts/master/fakespot.js
+// @version      3
 // ==/UserScript==
 
 /**
