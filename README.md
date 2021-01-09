@@ -11,6 +11,9 @@ Archived scripts are stored in archive folder.
 
 ### Scripts
 
+### facebook-marketplace-local-only
+Remove 'Ships to you' items from marketplace. I'm not sure this does what I want, but it's somewhat useful at the moment.
+
 #### fakespot
 Add fakespot link above buy box on amazon
 
