@@ -11,6 +11,9 @@ Archived scripts are stored in archive folder.
 
 ### Scripts
 
+### cnbc
+CNBC is removing the article because of my adblocking, so double the article, it won't remove both.
+
 ### facebook-marketplace-local-only
 Remove 'Ships to you' items from marketplace. I'm not sure this does what I want, but it's somewhat useful at the moment.
 
