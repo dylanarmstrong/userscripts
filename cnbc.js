@@ -1,22 +1,31 @@
 // ==UserScript==
 // @name         cnbc
 // @namespace    https://github.com/dylanarmstrong/tampermonkey-scripts/
-// @version      1
-// @description  cnbc is unloading the article b/c of adblocking
+// @version      2
+// @description  cnbc is accidentally unloading the article b/c of adblocking
 // @author       dylanarmstrong
 // @match        https://www.cnbc.com/*
 // @updateURL    https://raw.githubusercontent.com/dylanarmstrong/tampermonkey-scripts/master/cnbc.js
 // @supportURL   https://github.com/dylanarmstrong/tampermonkey-scripts/issues
 // @grant        none
+// @run-at       document-end
 // ==/UserScript==
 
 'use strict';
 
+/*
+ * CNBC keeps breaking their site.
+ * I really need to just ditch the whole site and pull out the text for their articles.
+ */
+
 (function() {
-  const art = document.querySelector('[data-module="ArticleBody"]');
-  if (art) {
-    const clone = art.cloneNode(true);
-    clone.setAttribute('data-module', 'FakeArticleBody');
-    art.parentNode.appendChild(clone);
-  }
+  const copy = () => {
+    const art = document.getElementById('MainContent');
+    if (art && art.querySelector('.Article.PageBuilder-page')) {
+      const clone = art.cloneNode(true);
+      clone.id = 'FakeMainContent';
+      art.parentNode.replaceChild(clone, art);
+    }
+  };
+  setTimeout(copy, 1000);
 })();
