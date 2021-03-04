@@ -5,10 +5,8 @@
 @match       *://fictionpress.com/*
 ==/UserStyle== */
 
-@import url('https://fonts.googleapis.com/css?family=Amiri');
-
 #storytext {
-  font-family: 'Amiri';
+  font-family: 'Bookerly';
   font-size: 18px;
   margin: 0 auto;
   width: 75%;

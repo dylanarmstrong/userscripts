@@ -6,8 +6,6 @@
 @match       *://forum.questionablequesting.com/*
 ==/UserStyle== */
 
-@import url('https://fonts.googleapis.com/css?family=Amiri');
-
 .bbCodePreview-content,
 .bbWrapper,
 .fr-box.fr-basic .fr-element,
@@ -15,7 +13,7 @@
 .messageText,
 .message-body .bbCodeBlock.bbCodeBlock-content,
 .message-body {
-  font-family: 'Amiri', serif !important;
+  font-family: 'Bookerly' !important;
   font-size: 18px !important;
   letter-spacing: 0;
   font-weight: 400;
