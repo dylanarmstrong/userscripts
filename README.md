@@ -55,9 +55,10 @@ Adds first message reaction score on alternate-history, sufficientvelocity and s
 
 ### Styles
 * fanfiction
-* reddit
 * hacker-news
+* reddit
 * royalroad
+* teddit
 * wormstorysearch
 * xenforo
 * youtube
