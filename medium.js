@@ -8,7 +8,7 @@
 // @run-at       document-body
 // @supportURL   https://github.com/dylanarmstrong/userscripts/issues
 // @updateURL    https://raw.githubusercontent.com/dylanarmstrong/userscripts/master/medium.js
-// @version      9
+// @version      10
 // ==/UserScript==
 
 /**
@@ -55,7 +55,7 @@
       document.head.appendChild(style);
     }
 
-    // Delete the cookies
+    // Delete the cookies, that I have access to
     const expire = new Date('2000-01-01').toUTCString();
     test(() => {
       document.cookie.split(';')
@@ -65,7 +65,7 @@
     });
 
     // Shadow the HttpOnly uid cookie
-    test(() => document.cookie = `uid=${Math.round(Math.random() * 100)};`);
+    test(() => document.cookie = `uid=lo_476e7083110${Math.round(Math.random() * 9)};path=/`);
 
     // May not have localStorage
     test(() => localStorage.clear());
@@ -89,7 +89,7 @@
       // Don't care how many free stories I have left
       test(() => {
         const el = document.querySelector('section');
-        if (el.textContent.match(/You have [0-9]*? free stor.*? left this month/)) {
+        if (el.textContent.match(/You have [0-9]*? free( member-only)? stor.*? left this month/)) {
           el.remove()
         }
       });
