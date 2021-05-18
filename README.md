@@ -24,6 +24,9 @@ Add fakespot link above buy box on amazon
 Modify fanfiction.net to be better. There's a customizable cors proxy url that can be used on the profile page.
 If you change this to your own, you can view mobile favorites (without 500 limit) on the desktop.
 
+#### google-placeholder
+Pulled in some uBlock scripts that have drop-in no-op replacements for google tracking, might cause less sites to break.
+
 #### imgur
 Bypass imgur login
 
