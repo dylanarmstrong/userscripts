@@ -60,6 +60,7 @@ Adds first message reaction score on alternate-history, sufficientvelocity and s
 * duckduckgo
 * fanfiction
 * hacker-news
+* guardian
 * reddit
 * royalroad
 * teddit

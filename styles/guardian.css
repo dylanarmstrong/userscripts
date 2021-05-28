@@ -1,0 +1,9 @@
+/* ==UserStyle==
+@name        guardian-style
+@description guardian-style
+@match       https://www.theguardian.com/*
+==/UserStyle== */
+
+.top-banner-ad-container.js-top-banner {
+  display: none;
+}
