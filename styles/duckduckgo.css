@@ -1,0 +1,10 @@
+/* ==UserStyle==
+@name        duckduckgo-style
+@description duckduckgo-style
+@match       https://duckduckgo.com/*
+==/UserStyle== */
+
+#ads,
+.js-sidebar-ads {
+  display: none;
+}

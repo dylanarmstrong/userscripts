@@ -57,6 +57,7 @@ Hides unpopular stories on spacebattles / sufficientvelocity, so it's easier to 
 Adds first message reaction score on alternate-history, sufficientvelocity and spacebattles.
 
 ### Styles
+* duckduckgo
 * fanfiction
 * hacker-news
 * reddit
