@@ -4,6 +4,7 @@
 @match       https://duckduckgo.com/*
 ==/UserStyle== */
 
+.serp__bottom-right.js-serp-bottom-right,
 #ads,
 .js-sidebar-ads {
   display: none;
