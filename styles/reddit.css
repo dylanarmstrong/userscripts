@@ -5,15 +5,19 @@
 @match       *://reddit.com/*
 ==/UserStyle== */
 
-#chat,
 #chat + .separator,
-.email-collection-banner,
+#chat,
+#chat-app,
 #redesign-beta-optin-btn,
-.premium-banner-outer,
-.listing-chooser.initialized,
+.ad-container,
+.email-collection-banner,
+.entry .buttons .crosspost-button,
 .entry .buttons .give-gold-button,
 .entry .buttons .share,
 .happening-now-wrap,
-.entry .buttons .crosspost-button {
+.listing-chooser.initialized,
+.premium-banner-outer,
+.presence_circle,
+.promoted {
   display: none !important;
 }

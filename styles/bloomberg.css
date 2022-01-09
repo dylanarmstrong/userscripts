@@ -1,0 +1,9 @@
+/* ==UserStyle==
+@name        bloomberg-style
+@description bloomber-style
+@match       https://www.bloomberg.com/*
+==/UserStyle== */
+
+.leaderboard-container {
+  display: none;
+}

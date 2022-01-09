@@ -27,6 +27,9 @@ If you change this to your own, you can view mobile favorites (without 500 limit
 #### google-placeholder
 Pulled in some uBlock scripts that have drop-in no-op replacements for google tracking, might cause less sites to break.
 
+#### guardian
+Attempt to fix some of the annoyances I'm encountering on theguardian. This doesn't really work yet, but it's a first step towards pulling out content and replacing entire page.
+
 #### imgur
 Bypass imgur login
 
@@ -50,6 +53,9 @@ Redirects www calls to old.reddit.com
 #### wikipedia-chess
 Fixes chessboards on Safari wikipedia
 
+#### wikipedia-nag
+Removes donation nag on wikipedia
+
 #### xenforo-popular
 Hides unpopular stories on spacebattles / sufficientvelocity, so it's easier to go through recently updated and find good stories.
 
@@ -57,12 +63,17 @@ Hides unpopular stories on spacebattles / sufficientvelocity, so it's easier to 
 Adds first message reaction score on alternate-history, sufficientvelocity and spacebattles.
 
 ### Styles
+* amazon
+* bloomberg
+* chess
 * duckduckgo
 * fanfiction
+* gamepedia
 * hacker-news
 * guardian
 * reddit
 * royalroad
+* speedrun
 * teddit
 * wormstorysearch
 * xenforo

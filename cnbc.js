@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         cnbc
-// @namespace    https://github.com/dylanarmstrong/tampermonkey-scripts/
+// @namespace    https://github.com/dylanarmstrong/userscripts/
 // @version      2
 // @description  cnbc is accidentally unloading the article b/c of adblocking
 // @author       dylanarmstrong
 // @match        https://www.cnbc.com/*
-// @updateURL    https://raw.githubusercontent.com/dylanarmstrong/tampermonkey-scripts/master/cnbc.js
-// @supportURL   https://github.com/dylanarmstrong/tampermonkey-scripts/issues
+// @updateURL    https://raw.githubusercontent.com/dylanarmstrong/userscripts/master/cnbc.js
+// @supportURL   https://github.com/dylanarmstrong/userscripts/issues
 // @grant        none
 // @run-at       document-end
 // ==/UserScript==

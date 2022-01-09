@@ -1,17 +1,22 @@
 /* ==UserStyle==
 @name        fanfiction-style
 @description fanfiction/fictionpress style
-@match       *://fanfiction.net/*
-@match       *://fictionpress.com/*
+@match       *://www.fanfiction.net/*
+@match       *://www.fictionpress.com/*
 ==/UserStyle== */
 
 #storytext {
   font-family: 'Bookerly';
-  font-size: 18px;
+  font-size: 24px;
   margin: 0 auto;
   width: 75%;
 }
 
+.adsbygoogle {
+    display: none !important;
+}
+
 #storytextp {
   -webkit-user-select: auto !important;
+  user-select: auto !important;
 }

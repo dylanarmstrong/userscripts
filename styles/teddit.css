@@ -6,31 +6,31 @@
 
 footer,
 #intro {
-    display: none;
+  display: none;
 }
 
 header {
-    background-color: #cee3f8;
-    border-bottom: 1px solid #5f99cf;
+  background-color: #cee3f8;
+  border-bottom: 1px solid #5f99cf;
 }
 
 header .tabmenu {
-    margin-top: 5px;
+  margin-top: 5px;
 }
 
 header a {
-    color: #369;
+  color: #369;
 }
 
 header .tabmenu li a {
-    padding: 2px 6px 0 6px;
-    background-color: #eff7ff;
-    color: #369;
+  padding: 2px 6px 0 6px;
+  background-color: #eff7ff;
+  color: #369;
 }
 
 header .tabmenu li.active a {
-    color: orangered;
-    border: 1px solid #5f99cf;
-    background-color: white;
-    border-bottom: 1px solid white;
+  color: orangered;
+  border: 1px solid #5f99cf;
+  background-color: white;
+  border-bottom: 1px solid white;
 }

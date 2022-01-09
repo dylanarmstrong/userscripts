@@ -1,0 +1,9 @@
+/* ==UserStyle==
+@name        chess-style
+@description chess style pulled from lichess
+@match       *://www.chess.com/*
+==/UserStyle== */
+
+.lesson-recommendation-component {
+  display: none;
+}

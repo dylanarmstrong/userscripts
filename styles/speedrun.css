@@ -1,0 +1,13 @@
+/* ==UserStyle==
+@name        speedrun-style
+@description speedrun-style
+@match       https://www.speedrun.com/*
+==/UserStyle== */
+
+#survey-recruitment,
+#extrabar,
+.malediction.hero,
+.malediction.rail,
+.ac-player-wrapper {
+  display: none;
+}

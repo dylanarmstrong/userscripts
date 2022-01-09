@@ -7,7 +7,7 @@
 // @namespace    https://github.com/dylanarmstrong/userscripts/
 // @supportURL   https://github.com/dylanarmstrong/userscripts/issues
 // @updateURL    https://raw.githubusercontent.com/dylanarmstrong/userscripts/master/fanfiction.js
-// @version      5
+// @version      6
 // ==/UserScript==
 
 /**
@@ -69,7 +69,6 @@
       }
     `;
     const style = document.createElement('style');
-    style.type = 'text/css';
     style.textContent = css;
     document.head.insertAdjacentElement('beforeend', style);
 
@@ -281,7 +280,7 @@
           const filterFiction = ({ target }) => {
             const { value } = target;
             const toggleElement = element => {
-              if (value === '' || element.getAttribute('data-category') === value) {
+              if (value === '' || element.getAttribute('data-category').includes(value)) {
                 element.style.display = 'block';
               } else {
                 element.style.display = 'none';
@@ -564,7 +563,7 @@
               fetch(`${cors}%26p=${i}`)
                 .then(r => r.json())
                 .then(get_content)
-                .catch(e => undefined)
+                .catch(_ => undefined)
             );
           }
           return Promise.all(ps);
@@ -578,7 +577,7 @@
         // Place on page
         .then(place)
         .then(update_badge)
-        .catch(e => undefined)
+        .catch(_ => undefined)
         .then(parse_normal);
     };
 

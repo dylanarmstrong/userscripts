@@ -5,7 +5,10 @@
 @match       *://*.royalroad.com/*
 ==/UserStyle== */
 
+@import url('https://fonts.googleapis.com/css?family=Amiri');
+
 .wide,
+.scroll_icon,
 .fic-header+.portlet,
 .chapter-content+.bold,
 .chapter-content+.bold+.wide+hr,
@@ -19,8 +22,8 @@
 
 .chapter-inner.chapter-content span,
 .chapter-inner.chapter-content {
-  font-size: 18px !important;
-  font-family: 'Bookerly' !important;
+  font-size: 22px !important;
+  font-family: 'Amiri' !important;
   letter-spacing: 0;
   font-weight: 400;
   text-rendering: optimizeLegibility;

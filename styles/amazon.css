@@ -1,0 +1,11 @@
+/* ==UserStyle==
+@name        amazon-style
+@description amazon, i know my prime benefits
+@match       https://*.amazon.com/*
+==/UserStyle== */
+
+#percolate-ui-ilm_div,
+#tellAFriendBox_feature_div,
+.nav-prime-tt.nav-flyout {
+  display: none !important;
+}

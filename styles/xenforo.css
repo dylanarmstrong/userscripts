@@ -8,6 +8,7 @@
 
 .bbCodePreview-content,
 .bbWrapper,
+.bbWrapper span,
 .fr-box.fr-basic .fr-element,
 .fr-box.fr-basic textarea.input,
 .messageText,
@@ -18,6 +19,25 @@
   letter-spacing: 0;
   font-weight: 400;
   text-rendering: optimizeLegibility;
+}
+
+.p-pageWrapper {
+  background-color: #000;
+}
+
+.p-body-inner {
+  padding-left: max(10px, env(safe-area-inset-left));
+  padding-right: max(10px, env(safe-area-inset-right));
+  margin: 0 auto;
+}
+
+.block--messages .message,
+.block--messages .block-row {
+  background-color: rgb(26, 31, 44);
+  border-top-color: #374e72;
+  border-right-color: #415c87;
+  border-bottom-color: #496898;
+  border-left-color: #415c87;
 }
 
 .messageContent,
@@ -35,6 +55,7 @@ a.unreadLink {
   display: none !important;
 }
 
+.samCodeUnit.samAlignCenter,
 .tooltip.tooltip--basic.tooltip--bottom.tooltip--selectToQuote,
 #QuoteSelected,
 .message-cell--user,

@@ -1,0 +1,15 @@
+/* ==UserStyle==
+@name        gamepedia-style
+@description gamepedia-style
+@match       https://*.gamepedia.com/*
+==/UserStyle== */
+
+@media screen and (min-width: 1px) {
+  div#content #bodyContent ~ [id^="siderail_"][id$="_gamepedia"] {
+    display: none !important;
+  }
+
+  #global-wrapper.with-siderail #content #bodyContent {
+    width: 100%;
+  }
+}

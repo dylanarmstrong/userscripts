@@ -4,6 +4,13 @@
 @match       https://www.theguardian.com/*
 ==/UserStyle== */
 
+#top-right-ad-slot,
+.contributions__adblock,
 .top-banner-ad-container.js-top-banner {
   display: none;
+}
+
+.sp-message-open {
+  overflow: auto !important;
+  position: relative !important;
 }

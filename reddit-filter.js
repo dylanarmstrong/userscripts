@@ -46,7 +46,6 @@
   `;
 
   const style = document.createElement('style');
-  style.type = 'text/css';
   style.textContent = css;
   document.head.insertBefore(style, document.head.firstChild);
 
@@ -261,4 +260,3 @@
 
   run();
 })();
-
