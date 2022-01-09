@@ -82,7 +82,7 @@ These scripts are ones I am not actively maintaining, they may continue to work.
 #### facebook-marketplace [archived]
 Sort facebook marketplace by date
 
-#### facebook-marketplace-local-only
+#### facebook-marketplace-local-only [archived]
 Remove 'Ships to you' items from marketplace. I'm not sure this does what I want, but it's somewhat useful at the moment.
 
 #### outline [archived]
