@@ -10,7 +10,7 @@
   display: none;
 }
 
-.sp-message-open {
+html.sp-message-open {
   overflow: auto !important;
   position: relative !important;
 }
