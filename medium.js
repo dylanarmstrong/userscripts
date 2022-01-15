@@ -8,7 +8,7 @@
 // @run-at       document-body
 // @supportURL   https://github.com/dylanarmstrong/userscripts/issues
 // @updateURL    https://raw.githubusercontent.com/dylanarmstrong/userscripts/master/medium.js
-// @version      10
+// @version      11
 // ==/UserScript==
 
 /**
@@ -194,7 +194,7 @@
       document.querySelectorAll('noscript').forEach(unhide);
 
       // Shitty popup on click / mouseover
-      test(() => document.querySelector('[tabindex="-1"]').parentNode.remove());
+      test(() => document.querySelector('[tabindex="-1"]').remove());
     };
 
     // Heh.
