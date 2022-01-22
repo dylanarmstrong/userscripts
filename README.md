@@ -48,7 +48,7 @@ Override Reddit's official window.r functionality that *may* be interesting, I d
 Redirects www calls to old.reddit.com
 
 #### uBlock-Origin-dev-filter
-Hides the crappy domains from DuckDuckGo & Google. PR [https://github.com/quenhus/uBlock-Origin-dev-filter/pull/12](here) for userscript output support.
+Hides the crappy domains from DuckDuckGo & Google. PR [here](https://github.com/quenhus/uBlock-Origin-dev-filter/pull/12) for userscript output support.
 
 #### wikipedia-chess
 Fixes chessboards on Safari wikipedia
