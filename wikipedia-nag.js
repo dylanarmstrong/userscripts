@@ -1,6 +1,6 @@
 // ==UserScript==
 // @author       dylanarmstrong
-// @description  Fix for chessboard images not working on Safari
+// @description  Remove wikipedia nag
 // @grant        none
 // @match        https://*.wikipedia.org/*
 // @name         wikipedia-nag
