@@ -1,0 +1,9 @@
+/* ==UserStyle==
+@name        lemonde-style
+@description lemonde-style
+@match       https://www.lemonde.fr/*
+==/UserStyle== */
+
+#js-message-register {
+  display: none;
+}

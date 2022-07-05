@@ -71,6 +71,7 @@ Adds first message reaction score on alternate-history, sufficientvelocity and s
 * gamepedia
 * hacker-news
 * guardian
+* lemonde
 * reddit
 * royalroad
 * speedrun
