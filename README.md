@@ -30,6 +30,9 @@ Attempt to fix some of the annoyances I'm encountering on theguardian. This does
 #### imgur
 Bypass imgur login
 
+#### logic-immo
+Fix this site so it works with adblock
+
 #### reddit-filter
 Adds a filter at end of tagline that has a popup to filter on subreddit, domain, or user (only on r/all). They're stored in the localStorage keys starting with 'filter'. Filtered items must be removed from localStorage manually.
 
