@@ -11,6 +11,9 @@ Archived scripts are stored in archive folder.
 
 ### Scripts
 
+#### ban-hn
+HN has really bad moderation, so this enables me to automatically hide cancerous people that I spot on there.
+
 #### cnbc
 CNBC is removing the article because of my adblocking, so double the article, it won't remove both.
 

@@ -4,7 +4,6 @@
 @match       https://www.theguardian.com/*
 ==/UserStyle== */
 
-#bottom-banner,
 #top-right-ad-slot,
 .contributions__adblock,
 .top-banner-ad-container.js-top-banner {
