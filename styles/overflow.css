@@ -1,0 +1,13 @@
+/* ==UserStyle==
+@name        overflow-style
+@description overflow-style
+@match        *://*/*
+==/UserStyle== */
+
+/**
+* Force overflow: auto to avoid blocking from modals
+*/
+body,
+html {
+  overflow: auto !important;
+}
