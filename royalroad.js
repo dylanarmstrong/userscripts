@@ -62,4 +62,10 @@
     newEl.querySelector('span').textContent = `${words} Words`;
     el.parentNode.insertAdjacentElement('afterend', newEl);
   }
+
+  Array.from(document.querySelectorAll('div.bold.uppercase, span.bold.uppercase')).forEach((element) => {
+    if (element.textContent.toLowerCase() === 'advertisement') {
+      element.parentNode.parentNode.removeChild(element.parentNode);
+    }
+  });
 })();

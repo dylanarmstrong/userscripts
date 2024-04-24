@@ -36,6 +36,9 @@ Bypass imgur login
 #### logic-immo
 Fix this site so it works with adblock
 
+#### overflow
+Force `overflow: auto` to avoid blocking from modals
+
 #### reddit-filter
 Adds a filter at end of tagline that has a popup to filter on subreddit, domain, or user (only on r/all). They're stored in the localStorage keys starting with 'filter'. Filtered items must be removed from localStorage manually.
 
