@@ -4,6 +4,7 @@
 // @grant        none
 // @match        https://www.reddit.com/*
 // @exclude      https://www.reddit.com/media*
+// @exclude      https://www.reddit.com/gallery*
 // @name         reddit-redirect
 // @namespace    https://github.com/dylanarmstrong/userscripts/
 // @run-at       document-start
