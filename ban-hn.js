@@ -12,8 +12,6 @@
 
 /**
  * HN has really bad moderation, so it's easier to just block the people who are cancer.
- *
- * Idea: Add `title` to `unban` that shows original comment that was banned
  */
 
 (function () {
