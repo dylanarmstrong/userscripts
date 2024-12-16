@@ -7,11 +7,13 @@
 // @namespace    https://github.com/dylanarmstrong/userscripts/
 // @supportURL   https://github.com/dylanarmstrong/userscripts/issues
 // @updateURL    https://raw.githubusercontent.com/dylanarmstrong/userscripts/main/ban-hn.js
-// @version      1
+// @version      2
 // ==/UserScript==
 
 /**
  * HN has really bad moderation, so it's easier to just block the people who are cancer.
+ *
+ * Idea: Add `title` to `unban` that shows original comment that was banned
  */
 
 (function () {
@@ -20,21 +22,31 @@
   // Store the version # in localStorage
   // this will be useful for possible breaking changes
   // How many ? can you fit on one line?
-  const version =
-    typeof GM_info === 'object' ? GM_info?.script?.version ?? 0 : 0;
+  const version = 1;
   const keys = {
     users: 'filter.users',
     version: 'filter.version',
   };
 
-  // Make sure all keys are initialized
-  Object.keys(keys).forEach((key) => {
-    const value = keys[key];
-    const item = localStorage.getItem(value);
-    if (item === null) {
-      localStorage.setItem(value, '');
+  const currentVersion = Number.parseInt(localStorage.getItem(keys.version));
+
+  // Migrate from 0 -> 1
+  if (currentVersion === 0 && version === 1) {
+    const bannedUsers = localStorage
+      .getItem(keys.users)
+      .split(',')
+      .filter(Boolean);
+    const data = {};
+    for (const user of bannedUsers) {
+      data[user] = 'Unknown';
     }
-  });
+    localStorage.setItem(keys.users, JSON.stringify(data));
+  }
+
+  const _users = localStorage.getItem(keys.users);
+  if (_users === null) {
+    localStorage.setItem(keys.users, '{}');
+  }
 
   // This is in case changes are ever breaking
   localStorage.setItem(keys.version, version);
@@ -56,8 +68,9 @@
       .querySelector('.hnuser')
       .textContent.toLowerCase();
 
-  const isBanned = (user) =>
-    localStorage.getItem(keys.users).split(',').includes(user);
+  const getData = () => JSON.parse(localStorage.getItem(keys.users));
+
+  const isBanned = (user) => getData()[user] !== undefined;
 
   // Remove all blocked subhns
   const hide = () => {
@@ -82,25 +95,28 @@
     e.stopPropagation();
 
     const { target } = e;
+    const title =
+      target.parentNode.parentNode.parentNode.parentNode.querySelector(
+        '.commtext',
+      )?.textContent || '';
 
     const key = keys.users;
     const user = getUser(target);
     const banned = isBanned(user);
+    const data = getData();
 
     if (
       confirm(
         `Are you sure you want to ${banned ? 'unblock' : 'block'} '${user}'?`,
       )
     ) {
-      let blocked = localStorage.getItem(key).split(',');
-      // Already in here, how'd the user block it twice?
-      if (blocked.includes(user)) {
-        blocked.splice(blocked.indexOf(user), 1);
+      if (banned) {
+        delete data[user];
       } else {
-        blocked.push(user);
+        data[user] = title;
       }
 
-      localStorage.setItem(key, blocked.join(','));
+      localStorage.setItem(key, JSON.stringify(data));
       hide();
       updateButtons();
     }
@@ -111,6 +127,10 @@
       const node = nodes[i];
       const a = node.querySelector('.hn-filter-span a');
       const user = getUser(node);
+      const reason = getData()[user];
+      if (reason !== undefined) {
+        a.title = reason;
+      }
       a.textContent = isBanned(user) ? 'unban' : 'ban';
     }
   };
@@ -123,6 +143,10 @@
         span.classList.add('hn-filter-span');
         const a = document.createElement('a');
         const user = getUser(node);
+        const reason = getData()[user];
+        if (reason !== undefined) {
+          a.title = reason;
+        }
         a.textContent = isBanned(user) ? 'unban' : 'ban';
         a.addEventListener('click', click);
         span.insertAdjacentText('afterbegin', ' | ');
