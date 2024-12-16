@@ -30,10 +30,8 @@
 
   // Migrate from 0 -> 1
   if (currentVersion === 0 && version === 1) {
-    const bannedUsers = localStorage
-      .getItem(keys.users)
-      .split(',')
-      .filter(Boolean);
+    const bannedUsers =
+      localStorage.getItem(keys.users)?.split(',').filter(Boolean) || [];
     const data = {};
     for (const user of bannedUsers) {
       data[user] = 'Unknown';
