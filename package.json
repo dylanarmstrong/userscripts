@@ -1,0 +1,14 @@
+{
+  "devDependencies": {
+    "@dylanarmstrong/eslint-config": "^0.7.1",
+    "eslint": "^9.18.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-unicorn": "^56.0.1",
+    "globals": "^15.14.0",
+    "prettier": "^3.4.2"
+  },
+  "scripts": {
+    "lint": "prettier --write --single-quote --trailing-comma=all --ignore-unknown . && eslint --fix *.js"
+  },
+  "type": "module"
+}
