@@ -6,10 +6,10 @@
 // @name         logic-immo
 // @namespace    https://github.com/dylanarmstrong/userscripts/
 // @supportURL   https://github.com/dylanarmstrong/userscripts/issues
-// @updateURL    https://raw.githubusercontent.com/dylanarmstrong/userscripts/master/logic-immo.js
-// @version      1
+// @updateURL    https://raw.githubusercontent.com/dylanarmstrong/userscripts/main/logic-immo.js
+// @version      2
 // ==/UserScript==
 
-(function(w) {
-    w.Didomi = { shouldConsentBeCollected: () => false };
-})(window);
+(function main(w) {
+  w.Didomi = { shouldConsentBeCollected: () => false };
+})(globalThis);

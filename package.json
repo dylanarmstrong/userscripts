@@ -8,7 +8,7 @@
     "prettier": "^3.4.2"
   },
   "scripts": {
-    "lint": "prettier --write --single-quote --trailing-comma=all --ignore-unknown . && eslint --fix *.js"
+    "lint": "prettier --write --single-quote --trailing-comma=all --ignore-unknown *.js styles/*.css *.md && eslint --fix *.js"
   },
   "type": "module"
 }

@@ -6,66 +6,69 @@
 // @name         royalroad
 // @namespace    https://github.com/dylanarmstrong/userscripts/
 // @supportURL   https://github.com/dylanarmstrong/userscripts/issues
-// @updateURL    https://raw.githubusercontent.com/dylanarmstrong/userscripts/master/royalroad.js
-// @version      3
+// @updateURL    https://raw.githubusercontent.com/dylanarmstrong/userscripts/main/royalroad.js
+// @version      4
 // ==/UserScript==
 
 /**
  * Just some royalroad stuff
  */
 
-(function() {
-  'use strict';
+(function main() {
   const colors = {
     bad: 'font-default',
     eh: 'font-red-sunglo',
+    good: 'font-blue',
     ok: 'font-blue-dark',
-    good: 'font-blue'
   };
 
   // Convert star rating to text
   let els = document.querySelectorAll('span.star');
-  for (let i = 0, len = els.length; i < len; i++) {
-    const el = els[i];
+  for (let index = 0, length_ = els.length; index < length_; index++) {
+    const element = els[index];
     const rate = document.createElement('span');
-    let num;
-    if (el.hasAttribute('aria-label')) {
-      num = Number.parseFloat(el.getAttribute('aria-label').replace(/[^\.0-9]*/g, ''));
-    } else if (el.hasAttribute('title')) {
-      num = Number.parseFloat(el.getAttribute('title'));
+    let number_;
+    if (element.hasAttribute('aria-label')) {
+      number_ = Number.parseFloat(
+        element.getAttribute('aria-label').replaceAll(/[^.0-9]*/g, ''),
+      );
+    } else if (element.hasAttribute('title')) {
+      number_ = Number.parseFloat(element.getAttribute('title'));
     }
-    if (num) {
+    if (number_) {
       let color;
-      if (num > 4.5) {
+      if (number_ > 4.5) {
         color = colors.good;
-      } else if (num > 4.1) {
+      } else if (number_ > 4.1) {
         color = colors.ok;
-      } else if (num > 3.8) {
+      } else if (number_ > 3.8) {
         color = colors.eh;
       } else {
         color = colors.bad;
       }
-      rate.textContent = num;
+      rate.textContent = number_;
       rate.classList.add(color);
-      el.parentNode.replaceChild(rate, el);
+      element.parentNode.replaceChild(rate, element);
     }
   }
 
   // Add number of words
   els = document.querySelectorAll('.row.stats > .col-sm-6 > .fa-book + span');
-  for (let i = 0, len = els.length; i < len; i++) {
-    const el = els[i];
-    const newEl = el.parentNode.cloneNode(true);
-    const pages = Number(el.textContent.replace(/[^0-9]*/g, ''));
+  for (let index = 0, length_ = els.length; index < length_; index++) {
+    const element = els[index];
+    const newElement = element.parentNode.cloneNode(true);
+    const pages = Number(element.textContent.replaceAll(/[^0-9]*/g, ''));
     const words = pages * 275;
 
-    newEl.querySelector('span').textContent = `${words} Words`;
-    el.parentNode.insertAdjacentElement('afterend', newEl);
+    newElement.querySelector('span').textContent = `${words} Words`;
+    element.parentNode.insertAdjacentElement('afterend', newElement);
   }
 
-  Array.from(document.querySelectorAll('div.bold.uppercase, span.bold.uppercase')).forEach((element) => {
+  for (const element of document.querySelectorAll(
+    'div.bold.uppercase, span.bold.uppercase',
+  )) {
     if (element.textContent.toLowerCase() === 'advertisement') {
-      element.parentNode.parentNode.removeChild(element.parentNode);
+      element.parentNode.remove();
     }
-  });
+  }
 })();

@@ -6,12 +6,11 @@
 // @name         wikipedia-nag
 // @namespace    https://github.com/dylanarmstrong/userscripts/
 // @supportURL   https://github.com/dylanarmstrong/userscripts/issues
-// @updateURL    https://raw.githubusercontent.com/dylanarmstrong/userscripts/master/wikipedia-nag.js
-// @version      1
+// @updateURL    https://raw.githubusercontent.com/dylanarmstrong/userscripts/main/wikipedia-nag.js
+// @version      2
 // ==/UserScript==
 
-(function() {
-  'use strict';
-  const el = document.getElementById('siteNotice');
-  el.parentNode.removeChild(el);
+(function main() {
+  const element = document.querySelector('#siteNotice');
+  element.remove();
 })();

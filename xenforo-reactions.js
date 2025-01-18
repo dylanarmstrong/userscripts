@@ -19,32 +19,30 @@
 // @name         xenforo-reactions
 // @namespace    https://github.com/dylanarmstrong/userscripts/
 // @supportURL   https://github.com/dylanarmstrong/userscripts/issues
-// @updateURL    https://raw.githubusercontent.com/dylanarmstrong/userscripts/master/xenforo-reactions.js
-// @version      3
+// @updateURL    https://raw.githubusercontent.com/dylanarmstrong/userscripts/main/xenforo-reactions.js
+// @version      4
 // ==/UserScript==
 
 /**
  * Add first message reaction count
  */
 
-(function() {
-  'use strict';
+(function main() {
   // Append reactions
-  document
-    .querySelectorAll('.structItem-cell.structItem-cell--meta')
-    .forEach(element => {
-      const reactions = element.title.replace(/[^0-9]/g, '');
-      const dl = document.createElement('dl');
-      dl.classList.add('pairs');
-      dl.classList.add('pairs--justified');
-      dl.classList.add('structItem-minor');
-      const dt = document.createElement('dt');
-      dt.textContent = 'Reactions';
-      dl.appendChild(dt);
-      const dd = document.createElement('dd');
-      dd.textContent = reactions;
-      dl.appendChild(dd);
-      element.appendChild(dl);
-    });
+  for (const element of document.querySelectorAll(
+    '.structItem-cell.structItem-cell--meta',
+  )) {
+    const reactions = element.title.replaceAll(/[^0-9]/g, '');
+    const dl = document.createElement('dl');
+    dl.classList.add('pairs');
+    dl.classList.add('pairs--justified');
+    dl.classList.add('structItem-minor');
+    const dt = document.createElement('dt');
+    dt.textContent = 'Reactions';
+    dl.append(dt);
+    const dd = document.createElement('dd');
+    dd.textContent = reactions;
+    dl.append(dd);
+    element.append(dl);
+  }
 })();
-

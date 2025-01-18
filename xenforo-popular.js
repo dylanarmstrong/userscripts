@@ -18,8 +18,8 @@
 // @name         xenforo-popular
 // @namespace    https://github.com/dylanarmstrong/userscripts/
 // @supportURL   https://github.com/dylanarmstrong/userscripts/issues
-// @updateURL    https://raw.githubusercontent.com/dylanarmstrong/userscripts/master/xenforo-popular.js
-// @version      6
+// @updateURL    https://raw.githubusercontent.com/dylanarmstrong/userscripts/main/xenforo-popular.js
+// @version      7
 // ==/UserScript==
 
 /**
@@ -28,9 +28,8 @@
  * TODO: It says xenforo.. but it only works for 2 sites, add alternatehistory
  */
 
-(function() {
-  'use strict';
-  const viewLimit = 50000;
+(function main() {
+  const viewLimit = 50_000;
   const replyLimit = 100;
   const hidden = [];
 
@@ -38,7 +37,7 @@
     const textContent = element.textContent.trim().toLowerCase();
     const k = textContent.endsWith('k') ? 1000 : 1;
     const m = textContent.endsWith('m') ? 1000 * 1000 : 1;
-    const viewCount = Number(textContent.replace(/[,km]/g, '')) * k * m;
+    const viewCount = Number(textContent.replaceAll(/[,km]/g, '')) * k * m;
     if (viewCount < viewLimit) {
       hidden.push(element);
     }
@@ -48,29 +47,33 @@
     const textContent = element.textContent.trim().toLowerCase();
     const k = textContent.endsWith('k') ? 1000 : 1;
     const m = textContent.endsWith('m') ? 1000 * 1000 : 1;
-    const replyCount = Number(textContent.replace(/[,km]/g, '')) * k * m;
-    if (replyCount > replyLimit) {
-      if (hidden.includes(element)) {
-        hidden.remove(element);
-      }
+    const replyCount = Number(textContent.replaceAll(/[,km]/g, '')) * k * m;
+    if (replyCount > replyLimit && hidden.includes(element)) {
+      hidden.remove(element);
     }
   };
 
-  let elements =
-    document
-      .querySelectorAll('.structItem-cell.structItem-cell--meta dl:nth-child(2) dd');
-  elements.forEach(viewEach);
-  elements =
-    document
-      .querySelectorAll('.structItem-cell.structItem-cell--meta dl:nth-child(1) dd');
-  elements.forEach(replyEach);
+  let elements = document.querySelectorAll(
+    '.structItem-cell.structItem-cell--meta dl:nth-child(2) dd',
+  );
 
-  for (let i = 0, len = hidden.length; i < len; i++) {
-    const element = hidden[i];
+  for (const element of elements) {
+    viewEach(element);
+  }
+
+  elements = document.querySelectorAll(
+    '.structItem-cell.structItem-cell--meta dl:nth-child(1) dd',
+  );
+
+  for (const element of elements) {
+    replyEach(element);
+  }
+
+  for (let index = 0, length_ = hidden.length; index < length_; index++) {
+    const element = hidden[index];
     const p = element.parentNode.parentNode.parentNode;
     if (p && p.parentNode) {
-      p.parentNode.removeChild(p);
+      p.remove();
     }
   }
 })();
-
