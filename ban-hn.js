@@ -7,7 +7,7 @@
 // @namespace    https://github.com/dylanarmstrong/userscripts/
 // @supportURL   https://github.com/dylanarmstrong/userscripts/issues
 // @updateURL    https://raw.githubusercontent.com/dylanarmstrong/userscripts/main/ban-hn.js
-// @version      3
+// @version      4
 // ==/UserScript==
 
 /**
@@ -20,8 +20,8 @@
   // How many ? can you fit on one line?
   const version = 1;
   const keys = {
-    users: 'filter.users',
-    version: 'filter.version',
+    users: "filter.users",
+    version: "filter.version",
   };
 
   const currentVersion = Number.parseInt(localStorage.getItem(keys.version));
@@ -29,38 +29,36 @@
   // Migrate from 0 -> 1
   if (currentVersion === 0 && version === 1) {
     const bannedUsers =
-      localStorage.getItem(keys.users)?.split(',').filter(Boolean) || [];
+      localStorage.getItem(keys.users)?.split(",").filter(Boolean) || [];
     const data = {};
     for (const user of bannedUsers) {
-      data[user] = 'Unknown';
+      data[user] = "Unknown";
     }
     localStorage.setItem(keys.users, JSON.stringify(data));
   }
 
   const _users = localStorage.getItem(keys.users);
   if (_users === null) {
-    localStorage.setItem(keys.users, '{}');
+    localStorage.setItem(keys.users, "{}");
   }
 
   // This is in case changes are ever breaking
   localStorage.setItem(keys.version, version);
 
   // Make a (x) button next to subhn
-  const button = document.createElement('button');
-  button.classList.add('hn-filter-block');
+  const button = document.createElement("button");
+  button.classList.add("hn-filter-block");
 
   let nodes;
 
   const updateNodes = () => {
-    nodes = [...document.querySelectorAll('.comment-tree .comhead')].filter(
+    nodes = [...document.querySelectorAll(".comment-tree .comhead")].filter(
       (node) => node !== null && node !== undefined,
     );
   };
 
   const getUser = (node) =>
-    node.parentNode.parentNode
-      .querySelector('.hnuser')
-      .textContent.toLowerCase();
+    node.querySelector(".hnuser")?.textContent.toLowerCase();
 
   const getData = () => JSON.parse(localStorage.getItem(keys.users));
 
@@ -74,10 +72,10 @@
       if (
         isBanned(user) && // Check if already hidden
         !node.parentNode.parentNode.parentNode.parentNode.querySelector(
-          '.noshow',
+          ".noshow",
         )
       ) {
-        node.parentNode.parentNode.querySelector('a.togg.clicky').click();
+        node.parentNode.parentNode.querySelector("a.togg.clicky").click();
       }
     }
   };
@@ -85,13 +83,13 @@
   const updateButtons = () => {
     for (let index = 0, length_ = nodes.length; index < length_; index++) {
       const node = nodes[index];
-      const a = node.querySelector('.hn-filter-span a');
+      const a = node.querySelector(".hn-filter-span a");
       const user = getUser(node);
       const reason = getData()[user];
       if (reason !== undefined) {
         a.title = reason;
       }
-      a.textContent = isBanned(user) ? 'unban' : 'ban';
+      a.textContent = isBanned(user) ? "unban" : "ban";
     }
   };
 
@@ -102,8 +100,8 @@
     const { target } = event;
     const title =
       target.parentNode.parentNode.parentNode.parentNode.querySelector(
-        '.commtext',
-      )?.textContent || '';
+        ".commtext",
+      )?.textContent || "";
 
     const key = keys.users;
     const user = getUser(target);
@@ -113,7 +111,7 @@
     if (
       // eslint-disable-next-line no-alert
       confirm(
-        `Are you sure you want to ${banned ? 'unblock' : 'block'} '${user}'?`,
+        `Are you sure you want to ${banned ? "unblock" : "block"} '${user}'?`,
       )
     ) {
       if (banned) {
@@ -131,18 +129,18 @@
   const addButtons = () => {
     for (let index = 0, length_ = nodes.length; index < length_; index++) {
       const node = nodes[index];
-      if (!node.querySelector('.hn-filter-span')) {
-        const span = document.createElement('span');
-        span.classList.add('hn-filter-span');
-        const a = document.createElement('a');
+      if (!node.querySelector(".hn-filter-span")) {
+        const span = document.createElement("span");
+        span.classList.add("hn-filter-span");
+        const a = document.createElement("a");
         const user = getUser(node);
         const reason = getData()[user];
         if (reason !== undefined) {
           a.title = reason;
         }
-        a.textContent = isBanned(user) ? 'unban' : 'ban';
-        a.addEventListener('click', click);
-        span.prepend(' | ');
+        a.textContent = isBanned(user) ? "unban" : "ban";
+        a.addEventListener("click", click);
+        span.prepend(" | ");
         span.append(a);
         node.append(span);
       }
