@@ -58,7 +58,9 @@
   };
 
   const getUser = (node) =>
-    node.querySelector(".hnuser")?.textContent.toLowerCase();
+    node.parentNode.parentNode
+      .querySelector(".hnuser")
+      ?.textContent.toLowerCase();
 
   const getData = () => JSON.parse(localStorage.getItem(keys.users));
 
@@ -104,6 +106,7 @@
       )?.textContent || "";
 
     const key = keys.users;
+    console.log(event, target, event.target, event.currentTarget);
     const user = getUser(target);
     const banned = isBanned(user);
     const data = getData();
