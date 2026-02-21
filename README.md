@@ -135,16 +135,16 @@ Replaced with styles in Cascadea.
 
 ```javascript
 const csses = {
-  '((old|www)\.)?reddit\.com$': {
-    type: 'regex',
+  "((old|www)\.)?reddit\.com$": {
+    type: "regex",
     css: `
       .subreddit {
         border: 1px solid blue;
       }
     `,
   },
-  'old.reddit.com': {
-    type: 'string',
+  "old.reddit.com": {
+    type: "string",
     css: `
       .subreddit {
         border: 1px solid red;
