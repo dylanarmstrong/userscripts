@@ -47,8 +47,6 @@
       document.querySelector(".meta__author")?.textContent?.trim() || "";
     const date =
       document.querySelector(".meta__date")?.textContent?.trim() || "";
-    const image =
-      document.querySelector('meta[property="og:image"]')?.content || "";
     const originalUrl = globalThis.location.href;
 
     const content = [];
@@ -67,7 +65,6 @@
       content,
       date,
       description,
-      image,
       originalUrl,
       title,
     };
@@ -221,7 +218,7 @@
       return;
     }
 
-    const { title, content, image, originalUrl } = articleData;
+    const { title, content, originalUrl } = articleData;
     // Extract plain text from the HTML content
     const temporary = document.createElement("div");
     temporary.innerHTML = content
@@ -235,8 +232,8 @@
 
     try {
       const json = JSON.stringify({
-        external_image: image,
         level: 3,
+        // eslint-disable-next-line camelcase
         original_url: originalUrl,
         status: "private",
         text,
