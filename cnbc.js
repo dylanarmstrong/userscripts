@@ -18,10 +18,10 @@
 
 (function main() {
   const copy = () => {
-    const art = document.querySelector('#MainContent');
-    if (art && art.querySelector('.Article.PageBuilder-page')) {
+    const art = document.querySelector("#MainContent");
+    if (art && art.querySelector(".Article.PageBuilder-page")) {
       const clone = art.cloneNode(true);
-      clone.id = 'FakeMainContent';
+      clone.id = "FakeMainContent";
       art.parentNode.replaceChild(clone, art);
     }
   };

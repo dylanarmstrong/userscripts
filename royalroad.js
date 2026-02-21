@@ -16,24 +16,24 @@
 
 (function main() {
   const colors = {
-    bad: 'font-default',
-    eh: 'font-red-sunglo',
-    good: 'font-blue',
-    ok: 'font-blue-dark',
+    bad: "font-default",
+    eh: "font-red-sunglo",
+    good: "font-blue",
+    ok: "font-blue-dark",
   };
 
   // Convert star rating to text
-  let els = document.querySelectorAll('span.star');
+  let els = document.querySelectorAll("span.star");
   for (let index = 0, length_ = els.length; index < length_; index++) {
     const element = els[index];
-    const rate = document.createElement('span');
+    const rate = document.createElement("span");
     let number_;
-    if (element.hasAttribute('aria-label')) {
+    if (element.hasAttribute("aria-label")) {
       number_ = Number.parseFloat(
-        element.getAttribute('aria-label').replaceAll(/[^.0-9]*/g, ''),
+        element.getAttribute("aria-label").replaceAll(/[^.0-9]*/g, ""),
       );
-    } else if (element.hasAttribute('title')) {
-      number_ = Number.parseFloat(element.getAttribute('title'));
+    } else if (element.hasAttribute("title")) {
+      number_ = Number.parseFloat(element.getAttribute("title"));
     }
     if (number_) {
       let color;
@@ -53,21 +53,21 @@
   }
 
   // Add number of words
-  els = document.querySelectorAll('.row.stats > .col-sm-6 > .fa-book + span');
+  els = document.querySelectorAll(".row.stats > .col-sm-6 > .fa-book + span");
   for (let index = 0, length_ = els.length; index < length_; index++) {
     const element = els[index];
     const newElement = element.parentNode.cloneNode(true);
-    const pages = Number(element.textContent.replaceAll(/[^0-9]*/g, ''));
+    const pages = Number(element.textContent.replaceAll(/[^0-9]*/g, ""));
     const words = pages * 275;
 
-    newElement.querySelector('span').textContent = `${words} Words`;
-    element.parentNode.insertAdjacentElement('afterend', newElement);
+    newElement.querySelector("span").textContent = `${words} Words`;
+    element.parentNode.insertAdjacentElement("afterend", newElement);
   }
 
   for (const element of document.querySelectorAll(
-    'div.bold.uppercase, span.bold.uppercase',
+    "div.bold.uppercase, span.bold.uppercase",
   )) {
-    if (element.textContent.toLowerCase() === 'advertisement') {
+    if (element.textContent.toLowerCase() === "advertisement") {
       element.parentNode.remove();
     }
   }

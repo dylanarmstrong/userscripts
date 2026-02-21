@@ -35,9 +35,9 @@
 
   const viewEach = (element) => {
     const textContent = element.textContent.trim().toLowerCase();
-    const k = textContent.endsWith('k') ? 1000 : 1;
-    const m = textContent.endsWith('m') ? 1000 * 1000 : 1;
-    const viewCount = Number(textContent.replaceAll(/[,km]/g, '')) * k * m;
+    const k = textContent.endsWith("k") ? 1000 : 1;
+    const m = textContent.endsWith("m") ? 1000 * 1000 : 1;
+    const viewCount = Number(textContent.replaceAll(/[,km]/g, "")) * k * m;
     if (viewCount < viewLimit) {
       hidden.push(element);
     }
@@ -45,16 +45,16 @@
 
   const replyEach = (element) => {
     const textContent = element.textContent.trim().toLowerCase();
-    const k = textContent.endsWith('k') ? 1000 : 1;
-    const m = textContent.endsWith('m') ? 1000 * 1000 : 1;
-    const replyCount = Number(textContent.replaceAll(/[,km]/g, '')) * k * m;
+    const k = textContent.endsWith("k") ? 1000 : 1;
+    const m = textContent.endsWith("m") ? 1000 * 1000 : 1;
+    const replyCount = Number(textContent.replaceAll(/[,km]/g, "")) * k * m;
     if (replyCount > replyLimit && hidden.includes(element)) {
       hidden.remove(element);
     }
   };
 
   let elements = document.querySelectorAll(
-    '.structItem-cell.structItem-cell--meta dl:nth-child(2) dd',
+    ".structItem-cell.structItem-cell--meta dl:nth-child(2) dd",
   );
 
   for (const element of elements) {
@@ -62,7 +62,7 @@
   }
 
   elements = document.querySelectorAll(
-    '.structItem-cell.structItem-cell--meta dl:nth-child(1) dd',
+    ".structItem-cell.structItem-cell--meta dl:nth-child(1) dd",
   );
 
   for (const element of elements) {

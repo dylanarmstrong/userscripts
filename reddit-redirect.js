@@ -20,7 +20,7 @@
 (function main() {
   // iframe detection and redirect to old if on www
   const { href } = document.location;
-  if (globalThis.self === window.top && href.slice(0, 12) === 'https://www.') {
+  if (globalThis.self === window.top && href.slice(0, 12) === "https://www.") {
     document.location.href = `https://old.${href.slice(12)}`;
   }
 })();

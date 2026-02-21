@@ -23,22 +23,22 @@
   };
 
   const destroy = () => {
-    loop(['iframe', 'script'], document.head);
+    loop(["iframe", "script"], document.head);
 
     const body = document.body.cloneNode(true);
-    document.body.innerHTML = '';
-    body.id = 'destroyed';
+    document.body.innerHTML = "";
+    body.id = "destroyed";
     loop(
       [
         'style[type="text/css"]',
-        'iframe',
-        'script',
-        '#sign-in-gate',
-        '.contributions__adblock',
-        '.top-banner-ad-container.js-top-banner',
-        '.ad-slot',
-        '.adBlock',
-        '[id^=sp_message_container]',
+        "iframe",
+        "script",
+        "#sign-in-gate",
+        ".contributions__adblock",
+        ".top-banner-ad-container.js-top-banner",
+        ".ad-slot",
+        ".adBlock",
+        "[id^=sp_message_container]",
       ],
       body,
     );

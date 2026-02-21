@@ -11,12 +11,12 @@
 // ==/UserScript==
 
 (function main() {
-  const els = document.querySelectorAll('.chess-board');
+  const els = document.querySelectorAll(".chess-board");
   const svg =
-    'https://upload.wikimedia.org/wikipedia/commons/d/d7/Chessboard480.svg';
+    "https://upload.wikimedia.org/wikipedia/commons/d/d7/Chessboard480.svg";
   const each = (element) => {
-    const old = element.querySelector('img');
-    const img = document.createElement('img');
+    const old = element.querySelector("img");
+    const img = document.createElement("img");
     img.src = svg;
     img.alt = old.alt;
     img.width = old.width;

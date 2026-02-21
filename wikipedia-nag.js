@@ -11,6 +11,6 @@
 // ==/UserScript==
 
 (function main() {
-  const element = document.querySelector('#siteNotice');
+  const element = document.querySelector("#siteNotice");
   element.remove();
 })();

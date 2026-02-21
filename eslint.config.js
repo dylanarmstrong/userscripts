@@ -1,5 +1,5 @@
-import eslint from '@dylanarmstrong/eslint-config';
-import globals from 'globals';
+import eslint from "@dylanarmstrong/eslint-config";
+import globals from "globals";
 
 export default [
   ...eslint,
@@ -7,6 +7,7 @@ export default [
     languageOptions: {
       globals: {
         ...globals.browser,
+        GM: "readonly",
       },
     },
   },

@@ -30,17 +30,15 @@
 (function main() {
   // Append reactions
   for (const element of document.querySelectorAll(
-    '.structItem-cell.structItem-cell--meta',
+    ".structItem-cell.structItem-cell--meta",
   )) {
-    const reactions = element.title.replaceAll(/[^0-9]/g, '');
-    const dl = document.createElement('dl');
-    dl.classList.add('pairs');
-    dl.classList.add('pairs--justified');
-    dl.classList.add('structItem-minor');
-    const dt = document.createElement('dt');
-    dt.textContent = 'Reactions';
+    const reactions = element.title.replaceAll(/[^0-9]/g, "");
+    const dl = document.createElement("dl");
+    dl.classList.add("pairs", "pairs--justified", "structItem-minor");
+    const dt = document.createElement("dt");
+    dt.textContent = "Reactions";
     dl.append(dt);
-    const dd = document.createElement('dd');
+    const dd = document.createElement("dd");
     dd.textContent = reactions;
     dl.append(dd);
     element.append(dl);
