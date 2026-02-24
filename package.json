@@ -9,7 +9,7 @@
     "prettier": "^3.8.1"
   },
   "scripts": {
-    "lint": "prettier --write *.js styles/*.css *.md && eslint --fix *.js"
+    "lint": "prettier --write *.js *.css *.md && eslint --fix *.js"
   },
   "type": "module"
 }
