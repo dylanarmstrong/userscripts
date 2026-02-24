@@ -1,4 +1,2 @@
 node_modules
-!styles/*.css
-*.css
 .DS_Store

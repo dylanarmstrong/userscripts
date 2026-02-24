@@ -5,6 +5,7 @@
 @match       *://reddit.com/*
 ==/UserStyle== */
 
+.listingsignupbar,
 #chat + .separator,
 #chat,
 #chat-app,
