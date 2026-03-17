@@ -25,25 +25,27 @@
   const destroy = () => {
     loop(["iframe", "script"], document.head);
 
-    const body = document.body.cloneNode(true);
-    document.body.innerHTML = "";
-    body.id = "destroyed";
+    // const body = document.body.cloneNode(true);
+    // document.body.innerHTML = "";
+    // body.id = "destroyed";
     loop(
       [
         'style[type="text/css"]',
         "iframe",
         "script",
         "#sign-in-gate",
+        ".ad-slot",
+        ".ad-slot-container",
+        ".adBlock",
         ".contributions__adblock",
         ".top-banner-ad-container.js-top-banner",
-        ".ad-slot",
-        ".adBlock",
+        ".top-fronts-banner-ad-container",
         "[id^=sp_message_container]",
       ],
-      body,
+      document.body,
     );
 
-    document.body = body;
+    // document.body = body;
   };
   destroy();
   setTimeout(destroy, 1000);
