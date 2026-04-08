@@ -203,7 +203,7 @@
         .replaceAll(/(harem)/gi, `<span class='bad'>$1</span>`)
         .replaceAll(/(hiatus)/gi, `<span class='bad'>$1</span>`)
         .replaceAll(/(mpreg)/gi, `<span class='bad'>$1</span>`)
-        .replaceAll(/(what\ if)/gi, `<span class='bad'>$1</span>`);
+        .replaceAll(/(what if)/gi, `<span class='bad'>$1</span>`);
     });
 
     if (is_profile_page) {
@@ -535,7 +535,7 @@
 
       // TODO: Placeholder
       const sort_mobile = (frag) => {
-        const children = [...frag.childNodes];
+        // const children = [...frag.childNodes];
         return frag;
       };
 
