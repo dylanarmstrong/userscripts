@@ -21,6 +21,7 @@
 }
 
 .chapter-inner.chapter-content span,
+.chapter-inner.chapter-content p,
 .chapter-inner.chapter-content {
   font-size: 22px !important;
   font-family: "Amiri" !important;
